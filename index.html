@@ -300,696 +300,779 @@ function showDashboard(name, role) {
   alert("Welcome, " + name + " (" + role + ")! [Dashboard would appear here]");
 }
 </script>
-<!-- SECTION 3: GUEST REGISTRATION DASHBOARD -->
-<section id="guest-dashboard">
 
-  <!-- HEADER (Branding) -->
-  <div class="dashboard-header-bg">
-    <div class="dashboard-header">
-      <div class="dashboard-title-top">Millennium</div>
-      <div class="dashboard-title-bottom">Casino</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Millennium Casino – Identity Verification</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Great+Vibes&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+  <style>
+    body {
+      background: #000;
+      min-height: 100vh;
+      font-family: 'Inter', Arial, sans-serif;
+      margin: 0;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .section3-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: #000;
+      box-shadow: 0 0 60px #d4af3722, 0 0 0 2px #d4af3733 inset;
+      border-radius: 18px;
+      padding: 5vh 5vw;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* --- Section 3 Header Group --- */
+    .section3-header-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3em;
+      margin-bottom: 2rem;
+      width: 100%;
+      position: relative;
+    }
+    .section3-title-wrapper {
+      text-align: center;
+      width: 100%;
+    }
+    .section3-icon {
+      color: #d4af37;
+      font-size: 2.3rem;
+      margin-bottom: 0.2em;
+      filter: drop-shadow(0 0 6px #d4af3788);
+      animation: shieldPulse 2.8s infinite;
+    }
+    @keyframes shieldPulse {
+      0%,100% { filter: drop-shadow(0 0 6px #d4af3788);}
+      50% { filter: drop-shadow(0 0 18px #d4af37cc);}
+    }
+    .section3-title-top {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.4rem);
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      background: linear-gradient(90deg, #d4af37 40%, #eccd79 75%, #d4af37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: -0.35em;
+      text-align: center;
+    }
+    .section3-title-bottom {
+      font-family: 'Great Vibes', cursive;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      color: #fdf6e3;
+      text-shadow: 0 0 8px #d4af37, 0 0 2px #fff;
+      margin-top: -0.7em;
+      position: relative;
+      text-align: center;
+      animation: section3Twinkle 3s ease-in-out infinite;
+      font-style: italic;
+    }
+    @keyframes section3Twinkle {
+      0%, 100% {
+        text-shadow: 0 0 8px #d4af37, 0 0 2px #fff;
+      }
+      60% {
+        text-shadow: 0 0 18px #d4af37, 0 0 8px #fff;
+      }
+    }
+
+    /* --- Back Arrow --- */
+    .back-arrow {
+      position: absolute;
+      top: 2vh;
+      left: 4vw;
+      z-index: 2;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: box-shadow 0.3s, background 0.2s;
+    }
+    .back-arrow:focus, .back-arrow:hover {
+      box-shadow: 0 0 10px #d4af37cc, 0 0 4px #fff;
+      background: #181818;
+    }
+    .back-arrow i {
+      color: #d4af37;
+      font-size: 1.6rem;
+      pointer-events: none;
+    }
+
+    /* --- Progress Bar --- */
+    .progress-bar-wrap {
+      width: 100%;
+      margin: 1.2rem 0 2rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .progress-bar-bg {
+      background: #1a1a1a;
+      border-radius: 6px;
+      height: 10px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .progress-bar-fill {
+      position: absolute;
+      left: 0; top: 0;
+      height: 100%;
+      background: linear-gradient(90deg, #d4af37 0%, #eccd79 100%);
+      border-radius: 6px;
+      width: 0%;
+      transition: width 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    @media (max-width: 768px) {
+      .progress-bar-bg { height: 6px; }
+    }
+
+    /* --- Section Title & Subtext --- */
+    .section3-title-main {
+      text-align: center;
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.02em;
+      color: #fff;
+    }
+    .section3-title-sub {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 400;
+      color: #cccccc;
+      margin-bottom: 2rem;
+    }
+
+    /* --- Upload Fields Block --- */
+    .upload-blocks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    @media (max-width: 900px) {
+      .upload-blocks-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+    .upload-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+    }
+    .upload-label {
+      text-transform: uppercase;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+      letter-spacing: 0.07em;
+    }
+    .upload-card {
+      width: 250px;
+      height: 250px;
+      max-width: 90vw;
+      max-height: 90vw;
+      background: #111;
+      border: 2px dashed #d4af37;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      cursor: pointer;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      box-shadow: 0 0 24px #d4af3711;
+    }
+    .upload-card:focus, .upload-card:hover {
+      border-color: #eccd79;
+      box-shadow: 0 0 24px #d4af37cc;
+    }
+    .upload-card-inner {
+      text-align: center;
+      color: #d4af37;
+      font-size: 1.2rem;
+      user-select: none;
+    }
+    .upload-card-inner i {
+      font-size: 2.3rem;
+      margin-bottom: 0.6rem;
+      animation: camBlink 2s infinite;
+    }
+    @keyframes camBlink {
+      0%,100% { opacity: 1;}
+      60% { opacity: 0.4;}
+    }
+    .upload-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 14px;
+      box-shadow: 0 0 16px #d4af37cc;
+      border: 2px solid #d4af37;
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .upload-preview:hover { box-shadow: 0 0 32px #d4af37dd; transform: scale(1.03); }
+
+    /* --- OCR Processing --- */
+    .ocr-processing-block {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+      min-height: 38px;
+    }
+    .ocr-loader {
+      margin-bottom: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+    .loader-ring {
+      border: 4px solid #d4af3711;
+      border-left-color: #d4af37;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      animation: spinLoader 1s linear infinite;
+      margin-right: 0.5rem;
+    }
+    @keyframes spinLoader { 100% { transform: rotate(360deg); } }
+    .ocr-status-text {
+      color: #d4af37;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    .ocr-status-error {
+      color: #c40000;
+      background: #181818;
+      border: 2px solid #c40000;
+      border-radius: 12px;
+      padding: 0.8rem 1.2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      width: 100%;
+      margin-top: 0.6rem;
+      text-align: center;
+      box-shadow: 0 0 16px #c40000aa;
+      animation: errorSlideIn 0.6s;
+    }
+    @keyframes errorSlideIn { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+    /* --- Parsed OR Manual Fields Block --- */
+    .fields-block {
+      width: 100%;
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+    @media (max-width: 900px) {
+      .fields-block {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+    }
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 0.5rem;
+      position: relative;
+    }
+    .field-label {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 0.95rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      margin-bottom: 0.5em;
+    }
+    .field-input {
+      background: #181818;
+      color: #fff;
+      border: 2px solid #d4af3711;
+      border-radius: 10px;
+      padding: 0.9em 1em;
+      font-size: 1rem;
+      font-family: inherit;
+      margin-bottom: 0.3em;
+      transition: border-color 0.3s, box-shadow 0.3s;
+      outline: none;
+      min-height: 48px;
+    }
+    .field-input:focus {
+      border-color: #d4af37;
+      box-shadow: 0 0 8px #d4af37cc;
+    }
+    .field-error {
+      color: #c40000;
+      font-size: 0.93em;
+      min-height: 18px;
+      font-weight: 600;
+      margin: 0.2em 0;
+    }
+    .gender-radio-row {
+      display: flex;
+      gap: 1.6em;
+      margin-top: 0.2em;
+    }
+    .gender-radio-row label {
+      font-size: 1em; color: #fff; font-weight: 500;
+    }
+    .gender-radio-row input[type="radio"] {
+      accent-color: #d4af37; cursor:pointer;
+    }
+
+    /* --- Submit Button --- */
+    .submit-btn-block {
+      width: 100%;
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+    }
+    .submit-btn {
+      width: 100%;
+      min-height: 50px;
+      background: linear-gradient(90deg,#D4AF37 80%,#eccd79 100%);
+      color: #181818;
+      font-family: 'Inter', Arial, sans-serif;
+      font-size: 1.2rem;
+      font-weight: bold;
+      border-radius: 1.2em;
+      border: none;
+      text-transform: uppercase;
+      box-shadow: 0 2px 10px #d4af3722;
+      cursor: pointer;
+      transition: box-shadow 0.3s, transform 0.2s, opacity 0.2s;
+      letter-spacing: 0.09em;
+    }
+    .submit-btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+      pointer-events: auto;
+      position: relative;
+    }
+    .submit-btn[title]:hover::after {
+      content: attr(title);
+      position: absolute;
+      left: 50%;
+      top: -2.2em;
+      transform: translateX(-50%);
+      background: #181818;
+      color: #d4af37;
+      padding: 0.5em 1em;
+      border-radius: 8px;
+      font-size: 0.95em;
+      box-shadow: 0 0 10px #d4af3722;
+      white-space: nowrap;
+      z-index: 20;
+      opacity: 1;
+    }
+    .submit-btn:not(:disabled):hover {
+      box-shadow: 0 0 24px #d4af37cc, 0 0 8px #fff;
+      transform: scale(1.04);
+    }
+
+    /* --- Popup Animation: Error & Success --- */
+    .popup-modal {
+      position: fixed;
+      left: 50%;
+      bottom: 4vh;
+      transform: translateX(-50%);
+      background: #181818;
+      border-radius: 14px;
+      box-shadow: 0 6px 28px #d4af37cc;
+      z-index: 999;
+      min-width: 300px;
+      max-width: 94vw;
+      padding: 1.4rem 1.8rem;
+      color: #fff;
+      font-family: 'Inter', Arial, sans-serif;
+      text-align: center;
+      font-size: 1.1rem;
+      animation: popupSlideIn 0.7s;
+    }
+    @keyframes popupSlideIn { from { transform: translate(-50%,80px); opacity: 0; } to { transform: translate(-50%,0); opacity: 1; } }
+    .popup-modal.error { border:2px solid #c40000; color:#c40000; }
+    .popup-modal.success {
+      border:2px solid #d4af37;
+      color: #d4af37;
+      font-weight: bold;
+      background: #181818;
+      box-shadow: 0 0 80px #d4af37cc;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.3rem;
+      padding: 2rem 3rem;
+      animation: popupSlideIn 0.7s, shimmerConfetti 1.4s;
+    }
+    @keyframes shimmerConfetti {
+      0% { box-shadow: 0 0 10px #d4af37cc;}
+      50% { box-shadow: 0 0 80px #d4af37cc;}
+      100% { box-shadow: 0 0 10px #d4af37cc;}
+    }
+    .popup-modal .popup-close {
+      display: inline-block;
+      margin-top: 1.6rem;
+      padding: 0.7em 2em;
+      background: #d4af37;
+      color: #181818;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-size: 1em;
+      box-shadow: 0 2px 8px #d4af3722;
+    }
+
+    /* --- Accessibility --- */
+    input:focus,select:focus,button:focus{outline:2px solid #d4af37;outline-offset:2px;}
+    input,select,button{font-family:inherit;}
+    @media(max-width:480px){
+      .section3-container { padding: 2vh 2vw; }
+      .section3-title-top { font-size: 1.8rem; }
+      .section3-title-bottom { font-size: 1.4rem; }
+      .fields-block { grid-template-columns: 1fr; gap: 1rem; }
+      .upload-blocks-grid { grid-template-columns: 1fr; gap: 1rem;}
+      .upload-card { width:90vw; height:90vw; min-width:180px; min-height:180px;}
+      .submit-btn { font-size: 1rem; min-height: 48px; }
+      .popup-modal { font-size: 1rem; padding: 1rem 1vw;}
+    }
+  </style>
+</head>
+<body>
+  <div class="section3-container">
+
+    <!-- Back Arrow -->
+    <div class="back-arrow" tabindex="0" aria-label="Go Back to Previous Step" title="Back">
+      <i class="fa-solid fa-arrow-left"></i>
+    </div>
+
+    <!-- Header & Branding -->
+    <div class="section3-header-group">
+      <i class="fa-solid fa-shield-halved section3-icon" aria-hidden="true"></i>
+      <div class="section3-title-wrapper">
+        <div class="section3-title-top" data-i18n="register_title_top">MILLENNIUM</div>
+        <div class="section3-title-bottom" data-i18n="register_title_bottom">Casino</div>
+      </div>
+    </div>
+
+    <!-- Progress Indicator Bar -->
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBarFill"></div>
+      </div>
+    </div>
+
+    <!-- Section Title -->
+    <div class="section3-title-main">Identity Verification</div>
+    <div class="section3-title-sub">To complete your account setup, we need to verify your identity.</div>
+
+    <!-- Upload Fields Block -->
+    <div class="upload-blocks-grid">
+      <div class="upload-block">
+        <div class="upload-label">Upload Selfie</div>
+        <div class="upload-card" id="selfie-upload" tabindex="0" aria-label="Upload Selfie">
+          <div class="upload-card-inner">
+            <i class="fa-solid fa-user"></i>
+            <div>Tap to upload</div>
+          </div>
+        </div>
+      </div>
+      <div class="upload-block">
+        <div class="upload-label">Upload Front of ID</div>
+        <div class="upload-card" id="frontid-upload" tabindex="0" aria-label="Upload Front of ID">
+          <div class="upload-card-inner">
+            <i class="fa-regular fa-address-card"></i>
+            <div>Tap to upload</div>
+          </div>
+        </div>
+      </div>
+      <div class="upload-block">
+        <div class="upload-label">Upload Back of ID</div>
+        <div class="upload-card" id="backid-upload" tabindex="0" aria-label="Upload Back of ID">
+          <div class="upload-card-inner">
+            <i class="fa-solid fa-id-card"></i>
+            <div>Tap to upload</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- OCR Processing & Animation -->
+    <div class="ocr-processing-block" id="ocrProcessingBlock" style="display:none;">
+      <div class="ocr-loader">
+        <span class="loader-ring"></span>
+        <span class="ocr-status-text">Extracting text from ID...</span>
+      </div>
+    </div>
+    <div class="ocr-status-error" id="ocrErrorBlock" style="display:none;">
+      <i class="fa-solid fa-circle-exclamation"></i> We couldn’t detect details automatically. Please fill in the fields below.
+    </div>
+
+    <!-- Parsed / Manual Fields Block -->
+    <form id="identityFieldsForm" autocomplete="off">
+      <div class="fields-block" id="fieldsBlock" style="display:none;">
+        <div class="field-group">
+          <label class="field-label" for="fullName">Full Name</label>
+          <input type="text" class="field-input" id="fullName" name="fullName" autocomplete="name" required>
+          <div class="field-error" id="errFullName"></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="dob">Date of Birth</label>
+          <input type="date" class="field-input" id="dob" name="dob" required>
+          <div class="field-error" id="errDob"></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="idNumber">ID Number</label>
+          <input type="text" class="field-input" id="idNumber" name="idNumber" required>
+          <div class="field-error" id="errIdNumber"></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="nationality">Nationality / Country of Issue</label>
+          <input type="text" class="field-input" id="nationality" name="nationality" required>
+          <div class="field-error" id="errNationality"></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Gender</label>
+          <div class="gender-radio-row">
+            <label><input type="radio" name="gender" value="Male"> Male</label>
+            <label><input type="radio" name="gender" value="Female"> Female</label>
+            <label><input type="radio" name="gender" value="Other"> Other</label>
+          </div>
+          <div class="field-error" id="errGender"></div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="expiryDate">Expiry Date</label>
+          <input type="date" class="field-input" id="expiryDate" name="expiryDate" required>
+          <div class="field-error" id="errExpiryDate"></div>
+        </div>
+      </div>
+      <div class="submit-btn-block">
+        <button type="submit" class="submit-btn" id="submitBtn" disabled title="Please complete all required fields">Continue to Final Step</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Error Popup -->
+  <div id="errorPopup" class="popup-modal error" style="display:none;">
+    <div>
+      <i class="fa-solid fa-circle-exclamation"></i>
+      You must complete identity verification to proceed.
+    </div>
+    <button class="popup-close" id="closeErrorPopup">OK</button>
+  </div>
+  <!-- Success Popup -->
+  <div id="successPopup" class="popup-modal success" style="display:none;">
+    <div>
+      <i class="fa-solid fa-circle-check"></i>
+      Verification submitted successfully.<br>
+      You're almost done!
     </div>
   </div>
 
-  <!-- Subheader -->
-  <div class="dashboard-subheader">GUEST REGISTRATION</div>
-  <hr class="dashboard-gold-divider" />
+  <script>
+    // --- Progress Bar Animation ---
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.getElementById('progressBarFill').style.width = '66%';
+      }, 300);
+    });
 
-  <!-- FORM CONTAINER -->
-  <form id="guest-reg-form" autocomplete="off" novalidate>
-    <div class="dashboard-form-grid">
+    // --- Back Arrow ---
+    document.querySelector('.back-arrow').addEventListener('click', () => {
+      // Change this to your section navigation as needed
+      window.location.hash = '#section-login';
+    });
+    document.querySelector('.back-arrow').addEventListener('keydown', (e) => {
+      if(e.key === 'Enter' || e.key === ' ') document.querySelector('.back-arrow').click();
+    });
 
-      <!-- ID Upload Section -->
-      <div class="id-upload-section">
-        <div class="id-upload-title">
-          <i class="fa-solid fa-id-card fa-fw"></i> Upload Your ID/Passport
-        </div>
-        <div class="id-upload-cards">
-          <!-- Front of ID -->
-          <div class="id-card-upload" id="front-id-upload">
-            <button type="button" class="id-upload-btn" id="btn-front-upload">
-              <span class="id-upload-icon"><i class="fa-solid fa-camera"></i></span>
-              <span class="id-upload-label">Take Photo: Front of ID</span>
-            </button>
-            <div class="id-upload-preview" id="front-id-preview"></div>
-          </div>
-          <!-- Back of ID -->
-          <div class="id-card-upload" id="back-id-upload">
-            <button type="button" class="id-upload-btn" id="btn-back-upload">
-              <span class="id-upload-icon"><i class="fa-solid fa-camera"></i></span>
-              <span class="id-upload-label">Take Photo: Back of ID</span>
-            </button>
-            <div class="id-upload-preview" id="back-id-preview"></div>
-          </div>
-        </div>
-        <div class="scan-hint" id="scan-hint"></div>
-        <div class="id-security-notes">
-          <span class="gold-italic">
-            <i class="fa-solid fa-lock"></i> We only store this data on your device using secure internal storage.<br>
-            <i class="fa-solid fa-shield-halved"></i> None of your data is shared or uploaded externally.
-          </span>
-        </div>
-      </div>
+    // --- Upload Blocks Logic ---
+    let uploadedImages = { selfie: "", frontid: "", backid: "" };
 
-      <!-- Autofill Section (hidden until both images uploaded) -->
-      <div class="auto-fill-section" id="auto-fill-section" style="display:none;">
-        <div class="auto-fill-header">
-          <span>Auto-filled from your ID</span>
-          <i class="fa-solid fa-circle-info" title="Fields were extracted from your document using secure on-device OCR."></i>
-        </div>
-        <div class="auto-fill-fields">
-          <div class="auto-fill-row">
-            <label>Full Name</label>
-            <span id="auto-fullname"></span>
-            <span class="match-indicator" id="match-name"></span>
-          </div>
-          <div class="auto-fill-row">
-            <label>ID Number</label>
-            <span id="auto-idnumber"></span>
-            <span class="match-indicator" id="match-id"></span>
-          </div>
-          <div class="auto-fill-row">
-            <label>Date of Birth</label>
-            <span id="auto-dob"></span>
-            <span class="match-indicator" id="match-dob"></span>
-          </div>
-          <div class="auto-fill-row">
-            <label>Nationality</label>
-            <span id="auto-nation"></span>
-            <span class="match-indicator" id="match-nation"></span>
-          </div>
-          <div class="auto-fill-row">
-            <label>Gender</label>
-            <span id="auto-gender"></span>
-            <span class="match-indicator" id="match-gender"></span>
-          </div>
-        </div>
-      </div>
+    function handleUpload(target) {
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.accept = "image/jpeg,image/png";
+      input.click();
+      input.onchange = function() {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(ev) {
+          uploadedImages[target] = ev.target.result;
+          const card = document.getElementById(target + '-upload');
+          card.innerHTML = `<img src="${ev.target.result}" alt="${target}" class="upload-preview" />`;
+          card.classList.add('uploaded');
+          checkUploadsAndShowOCR();
+        };
+        reader.readAsDataURL(file);
+      };
+    }
 
-      <!-- Form Inputs (appear after scan or can be manually entered) -->
-      <div class="form-fields-section" id="form-fields-section" style="display:none;">
-        <div class="form-fields-row">
-          <div class="form-group">
-            <label for="field-name"><i class="fa-solid fa-user"></i> Full Name</label>
-            <input type="text" id="field-name" name="name" placeholder="e.g. John Mwangi Odhiambo" autocomplete="name" />
-            <span class="error-msg" id="error-name"></span>
-          </div>
-          <div class="form-group">
-            <label for="field-id"><i class="fa-solid fa-id-card"></i> ID Number</label>
-            <input type="text" id="field-id" name="id" placeholder="ID / Passport No." />
-            <span class="error-msg" id="error-id"></span>
-          </div>
-        </div>
-        <div class="form-fields-row">
-          <div class="form-group">
-            <label for="field-dob"><i class="fa-solid fa-calendar-days"></i> Date of Birth</label>
-            <input type="date" id="field-dob" name="dob" />
-            <span class="error-msg" id="error-dob"></span>
-          </div>
-          <div class="form-group">
-            <label for="field-nation"><i class="fa-solid fa-globe"></i> Nationality</label>
-            <select id="field-nation" name="nation">
-              <option value="">Select...</option>
-              <option value="Kenyan">Kenyan</option>
-              <option value="Ugandan">Ugandan</option>
-              <option value="Tanzanian">Tanzanian</option>
-              <option value="Rwandan">Rwandan</option>
-              <option value="Burundian">Burundian</option>
-              <option value="Other">Other</option>
-            </select>
-            <span class="error-msg" id="error-nation"></span>
-          </div>
-        </div>
-        <div class="form-fields-row">
-          <div class="form-group">
-            <label>Gender</label>
-            <div class="gender-radio-group">
-              <label><input type="radio" name="gender" value="Male" /> Male</label>
-              <label><input type="radio" name="gender" value="Female" /> Female</label>
-              <label><input type="radio" name="gender" value="Other" /> Other</label>
-            </div>
-            <span class="error-msg" id="error-gender"></span>
-          </div>
-        </div>
-        <div class="form-fields-row">
-          <button type="submit" class="reg-btn" id="reg-submit">
-            <i class="fa-solid fa-check"></i> Submit Registration
-          </button>
-        </div>
-        <div class="privacy-policy-link">
-          <a href="privacy.html" target="_blank">Privacy Policy</a>
-        </div>
-      </div>
-    </div>
-  </form>
-</section>
+    ['selfie','frontid','backid'].forEach(target => {
+      document.getElementById(target + '-upload').addEventListener('click', () => handleUpload(target));
+      document.getElementById(target + '-upload').addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' ') handleUpload(target);
+      });
+    });
 
-<!-- IMAGE MODAL FOR PREVIEW -->
-<div id="img-modal" class="img-modal" style="display:none;">
-  <div class="img-modal-content">
-    <span class="img-modal-close">&times;</span>
-    <img id="img-modal-preview" src="" alt="Enlarged ID Preview" />
-  </div>
-</div>
+    // --- OCR Simulation ---
+    let ocrStatus = null;
+    function checkUploadsAndShowOCR() {
+      // Only start OCR if all three images uploaded
+      if (uploadedImages.selfie && uploadedImages.frontid && uploadedImages.backid && !ocrStatus) {
+        // Show loader
+        document.getElementById('ocrProcessingBlock').style.display = 'flex';
+        document.getElementById('ocrErrorBlock').style.display = 'none';
+        ocrStatus = "processing";
+        setTimeout(() => {
+          // Randomly succeed or fail
+          const success = Math.random() > 0.35;
+          if (success) {
+            document.getElementById('ocrProcessingBlock').style.display = 'none';
+            showFields(true);
+          } else {
+            document.getElementById('ocrProcessingBlock').style.display = 'none';
+            document.getElementById('ocrErrorBlock').style.display = 'block';
+            showFields(false);
+          }
+          ocrStatus = success ? "success" : "fail";
+        }, 2200 + Math.random()*2200); // Simulate 2.2s-4.4s loading
+      }
+    }
 
-<!-- SUCCESS POPUP -->
-<div id="reg-success-popup" class="reg-success-popup" style="display:none;">
-  <div class="reg-success-inner">
-    <i class="fa-solid fa-circle-check"></i> Registration successful!
-  </div>
-</div>
-
-<!-- FONTS & ICONS -->
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-
-<style>
-/* ---- HEADER ---- */
-.dashboard-header-bg {
-  width: 100vw;
-  background: #000;
-  background-image: linear-gradient(90deg, #1a1a1a 0%, #000 100%), repeating-linear-gradient(135deg, #E6C87A10 0px, #E6C87A10 2px, transparent 2px, transparent 24px);
-  padding-top: 2.2rem; padding-bottom: 1.2rem;
-  text-align: center;
-}
-.dashboard-header {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-}
-.dashboard-title-top {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.2rem, 2vw, 2rem);
-  color: #fff;
-  font-weight: 400;
-  letter-spacing: 0.13em;
-  margin-bottom: -0.7em;
-  text-transform: small-caps;
-}
-.dashboard-title-bottom {
-  font-family: 'Great Vibes', cursive;
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  color: #E6C87A;
-  font-weight: bold;
-  letter-spacing: 0.06em;
-  margin-top: -0.3em;
-  text-shadow: 0 0 24px #E6C87A88, 0 0 2px #fff;
-  animation: casinoTwinkle 3.2s infinite;
-}
-@keyframes casinoTwinkle {
-  0%,100% { text-shadow: 0 0 24px #E6C87A88, 0 0 2px #fff;}
-  60% { text-shadow: 0 0 36px #E6C87Acc, 0 0 8px #fff;}
-}
-.dashboard-subheader {
-  font-family: 'Poppins', Arial, sans-serif;
-  font-size: clamp(1.2rem, 2vw, 2rem);
-  color: #E6C87A;
-  font-weight: bold;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
-  margin: 0 auto 0.6rem auto;
-  text-align: center;
-  padding-top: 24px;
-}
-.dashboard-gold-divider {
-  border: none;
-  border-top: 2px solid #E6C87A88;
-  width: 10vw; max-width: 140px; margin: 0 auto 2.2rem auto;
-  opacity: 0.8;
-}
-
-/* ---- FORM CONTAINER ---- */
-#guest-reg-form {
-  background: #181818;
-  border-radius: 18px;
-  box-shadow: 0 6px 36px #E6C87A33;
-  border: 1.5px solid #E6C87A44;
-  max-width: 1600px;
-  margin: 0 auto;
-  padding: 2rem 4vw;
-  display: flex; flex-direction: column; gap: 2rem;
-  font-family: 'Poppins', Arial, sans-serif;
-}
-.dashboard-form-grid { width:100%; }
-
-/* --- ID UPLOAD --- */
-.id-upload-section {
-  margin-bottom: 2rem;
-}
-.id-upload-title {
-  color: #E6C87A;
-  font-weight: bold;
-  font-size: clamp(1rem, 1.2vw, 1.3rem);
-  margin-bottom: 0.7rem;
-  letter-spacing: 0.06em;
-  display: flex; align-items: center; gap: 0.5em;
-}
-.id-upload-cards {
-  display: flex; flex-direction: row; gap: 2vw; justify-content: center;
-}
-.id-card-upload {
-  background: #111;
-  border-radius: 14px;
-  box-shadow: 0 2px 10px #E6C87A22;
-  border: 1px solid #E6C87A55;
-  padding: 1rem 0.7rem;
-  min-width: 180px; max-width: 320px;
-  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
-  margin-bottom: 1.5rem;
-  position: relative;
-}
-.id-upload-btn {
-  background: #E6C87A;
-  color: #181818;
-  font-size: 1rem;
-  font-weight: bold;
-  border-radius: 0.8rem;
-  padding: 0.7em 1em;
-  border: none;
-  box-shadow: 0 2px 10px #E6C87A44;
-  display: flex; align-items: center; gap: 0.7em; justify-content: center;
-  cursor: pointer;
-  transition: box-shadow 0.3s, transform 0.3s;
-  margin-bottom: 0.5rem;
-  position: relative;
-}
-.id-upload-btn:hover {
-  box-shadow: 0 0 16px #E6C87A, 0 0 4px #fff;
-  transform: scale(1.04);
-}
-.id-upload-icon {
-  animation: camBlink 2s infinite;
-  color: #E6C87A;
-  font-size: 1.2em;
-}
-@keyframes camBlink {
-  0%,100% { opacity: 1;}
-  60% { opacity: 0.4;}
-}
-.id-upload-preview {
-  margin-top: 0.5rem; min-height: 54px;
-  display: flex; align-items: center; justify-content: center;
-}
-.id-upload-preview img {
-  max-width: 120px; max-height: 54px; border-radius: 10px;
-  border: 2px solid #E6C87A;
-  box-shadow: 0 0 12px #E6C87A55;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-.id-upload-preview img:hover {
-  transform: scale(1.15);
-  box-shadow: 0 0 24px #E6C87A99;
-}
-.scan-hint {
-  color: #E6C87A; background: #222; border-radius: 0.7em;
-  font-size: 1rem; padding: 0.5em 1em; margin: 1em auto 0 auto;
-  text-align: center;
-  box-shadow: 0 2px 10px #E6C87A33;
-  display: none; position: relative;
-  animation: scanHintAnim 0.5s;
-}
-@keyframes scanHintAnim {
-  from{opacity:0;transform:translateY(-10px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-/* --- SECURITY NOTE --- */
-.id-security-notes { margin: 0.7rem auto 0.7rem auto; text-align: center;}
-.gold-italic {
-  color: #E6C87A; font-style: italic; opacity: 0.85; font-size: 0.93em;
-  letter-spacing: 0.01em;
-}
-
-/* --- AUTO FILL SECTION --- */
-.auto-fill-section {
-  background: #E6C87A18;
-  border-radius: 14px;
-  box-shadow: 0 2px 8px #E6C87A22;
-  padding: 1.2rem 1.2rem;
-  margin: 1.2rem auto;
-  max-width: 480px;
-  animation: autofillFadeIn 0.8s;
-}
-@keyframes autofillFadeIn { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
-.auto-fill-header {
-  font-family: 'Poppins', Arial, sans-serif;
-  font-size: 1.1em; color: #E6C87A; font-weight: bold;
-  margin-bottom: 0.7rem;
-  display: flex; align-items: center; gap: 0.5em;
-}
-.auto-fill-fields { margin-top: 0.6rem;}
-.auto-fill-row {
-  display: flex; align-items: center; gap: 1em; justify-content: flex-start;
-  font-size: 1rem; margin-bottom: 0.5rem;
-}
-.auto-fill-row label { color: #fff; min-width: 102px; font-weight: 500;}
-.auto-fill-row span { font-weight: 500;}
-.match-indicator {
-  margin-left: 0.6em;
-  font-size: 1.3em;
-  vertical-align: middle;
-}
-.match-indicator.match { color: #1fc600; }
-.match-indicator.no-match { color: #c40000; }
-
-/* --- FORM FIELDS --- */
-.form-fields-section { margin-top: 2rem; }
-.form-fields-row {
-  display: flex; gap: 2vw; flex-wrap: wrap; justify-content: center;
-  margin-bottom: 1rem;
-}
-.form-group {
-  display: flex; flex-direction: column; min-width: 180px; max-width: 300px; width: 100%;
-  background: #111;
-  border-radius: 10px;
-  padding: 1em;
-  margin-bottom: 0.5em;
-  box-shadow: 0 2px 8px #E6C87A33;
-}
-.form-group label {
-  font-family: 'Poppins', Arial, sans-serif;
-  color: #E6C87A;
-  font-size: 1em;
-  font-weight: bold;
-  margin-bottom: 0.5em;
-  letter-spacing: 0.07em;
-  display: flex; align-items: center; gap: 0.4em;
-}
-.form-group input,
-.form-group select {
-  background: #181818;
-  color: #fff;
-  border: 1px solid #E6C87A80;
-  border-radius: 7px;
-  padding: 0.7em 1em;
-  font-size: 1em;
-  font-family: 'Poppins', Arial, sans-serif;
-  margin-bottom: 0.4em;
-  transition: border-color 0.3s, box-shadow 0.3s;
-  outline: none;
-}
-.form-group input:focus,
-.form-group select:focus {
-  border-color: #E6C87A;
-  box-shadow: 0 0 8px #E6C87A88;
-}
-.gender-radio-group {
-  display: flex; gap: 1.4em; margin-top: 0.3em;
-}
-.gender-radio-group label {
-  font-size: 1em; color: #fff; font-weight: 500;
-}
-.gender-radio-group input[type="radio"] {
-  accent-color: #E6C87A; cursor:pointer;
-}
-.error-msg {
-  color: #c40000; font-size: 0.93em; min-height: 18px; font-weight: 600;
-}
-
-/* --- BUTTONS --- */
-.reg-btn {
-  background: #E6C87A;
-  color: #181818;
-  font-family: 'Poppins', Arial, sans-serif;
-  font-size: 1.02em;
-  font-weight: bold;
-  border-radius: 1.2em;
-  border: none;
-  padding: 0.8em 2em;
-  box-shadow: 0 2px 10px #E6C87A44;
-  cursor: pointer;
-  transition: box-shadow 0.3s, transform 0.3s;
-  max-width: 200px;
-  float: right;
-}
-.reg-btn:hover {
-  box-shadow: 0 0 16px #fff, 0 0 8px #E6C87A;
-  transform: scale(1.06);
-}
-
-/* --- PRIVACY POLICY LINK --- */
-.privacy-policy-link {
-  margin: 2.3em 0 0 0; width: 100%; text-align: right;
-}
-.privacy-policy-link a {
-  color: #E6C87A; font-size: 1em;
-  text-decoration: underline;
-  opacity: 0.8;
-}
-
-/* --- MODALS --- */
-.img-modal {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  background: rgba(0,0,0,0.7); z-index: 100; display: flex; align-items: center; justify-content: center;
-  animation: modalFadeIn 0.5s;
-}
-@keyframes modalFadeIn { from{opacity:0;}to{opacity:1;} }
-.img-modal-content {
-  background: #181818; border-radius: 12px; box-shadow: 0 0 32px #E6C87A77;
-  padding: 2rem; text-align: center; position: relative;
-}
-.img-modal-content img {
-  max-width: 90vw; max-height: 70vh; border-radius: 12px; border: 2px solid #E6C87A;
-}
-.img-modal-close {
-  position: absolute; top: 14px; right: 18px; font-size: 2rem; color: #E6C87A; cursor: pointer; font-weight: bold;
-  transition: color 0.2s;
-}
-.img-modal-close:hover { color: #FFD700; }
-
-.reg-success-popup {
-  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-  z-index:120; background:#181818ee; border-radius:16px; box-shadow:0 6px 28px #E6C87A99;
-  padding:2rem 3rem; text-align:center; animation:popupFadeIn 0.5s;
-}
-@keyframes popupFadeIn{from{opacity:0;transform:scale(0.5);}to{opacity:1;transform:scale(1);}}
-.reg-success-inner {
-  font-size: 1.5em; color: #E6C87A; font-family: 'Poppins', Arial, sans-serif;
-  letter-spacing: 0.06em; font-weight: bold;
-  display: flex; align-items: center; gap: 0.6em; justify-content: center;
-}
-.reg-success-inner i { color: #1fc600; }
-
-/* --- RESPONSIVE --- */
-@media (max-width:480px){
-  .dashboard-header-bg{padding-top:1.2rem;padding-bottom:0.5rem;}
-  #guest-reg-form{padding:1rem;}
-  .dashboard-gold-divider{margin-bottom:1rem;}
-  .id-upload-cards{flex-direction:column;gap:1rem;}
-  .form-fields-row{flex-direction:column;gap:1rem;}
-  .reg-btn{width:100%;max-width:none;float:none;}
-  .auto-fill-section{padding:0.7rem;}
-}
-@media (min-width:481px) and (max-width:768px){
-  #guest-reg-form{padding:2rem;}
-  .id-upload-cards{flex-direction:row;gap:2vw;}
-  .form-fields-row{flex-direction:row;}
-  .reg-btn{width:100%;max-width:none;}
-}
-@media (min-width:769px){
-  #guest-reg-form{padding:4rem 10%;}
-  .id-upload-cards{flex-direction:row;gap:2vw;}
-  .form-fields-row{flex-direction:row;}
-  .reg-btn{max-width:200px;}
-}
-@media (min-width:1441px){
-  #guest-reg-form{padding:6rem 20%;}
-  .dashboard-header-bg{padding-top:3.2rem;}
-  .id-upload-cards{gap:3vw;}
-  .form-group{max-width:360px;}
-}
-
-/* --- Accessibility --- */
-input:focus,select:focus,button:focus{outline:2px solid #E6C87A;outline-offset:2px;}
-input,select,button{font-family:inherit;}
-</style>
-
-<script>
-// --- IMAGE CAPTURE/UPLOAD ---
-let frontIdData = "", backIdData = "";
-function showScanHint(msg) {
-  const hint = document.getElementById('scan-hint');
-  hint.textContent = msg;
-  hint.style.display = 'block';
-  setTimeout(()=>{ hint.style.display = 'none'; }, 4000);
-}
-
-// Use file upload instead of camera for demo
-function handleUpload(side) {
-  showScanHint(`Upload a clear photo of the ${side} of your ID`);
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = "image/jpeg,image/png";
-  input.click();
-
-  input.onchange = function() {
-    const file = input.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = function(ev) {
-      if(side==="front") {
-        frontIdData = ev.target.result;
-        document.getElementById('front-id-preview').innerHTML =
-          `<img src="${frontIdData}" alt="Front of ID" title="Front of ID" />`;
+    function showFields(autofill) {
+      const block = document.getElementById('fieldsBlock');
+      block.style.display = 'grid';
+      if (autofill) {
+        document.getElementById('fullName').value = "John Mwangi Odhiambo";
+        document.getElementById('dob').value = "1992-06-18";
+        document.getElementById('idNumber').value = "A1234567";
+        document.getElementById('nationality').value = "Kenyan";
+        document.querySelector('input[name="gender"][value="Male"]').checked = true;
+        document.getElementById('expiryDate').value = "2032-06-18";
       } else {
-        backIdData = ev.target.result;
-        document.getElementById('back-id-preview').innerHTML =
-          `<img src="${backIdData}" alt="Back of ID" title="Back of ID" />`;
+        // Clear all if manual
+        ['fullName','dob','idNumber','nationality','expiryDate'].forEach(id => document.getElementById(id).value = "");
+        document.querySelectorAll('input[name="gender"]').forEach(el => el.checked = false);
       }
-      checkBothUploads();
-    };
-    reader.readAsDataURL(file);
-  };
-}
-// Click handlers for camera upload buttons
-document.getElementById('btn-front-upload').onclick = ()=>handleUpload("front");
-document.getElementById('btn-back-upload').onclick = ()=>handleUpload("back");
+      validateForm();
+    }
 
-// Preview modal
-function setupImgModal() {
-  ['front-id-preview','back-id-preview'].forEach(id=>{
-    document.getElementById(id).addEventListener('click',function(e){
-      if(e.target.tagName==='IMG'){
-        document.getElementById('img-modal-preview').src = e.target.src;
-        document.getElementById('img-modal').style.display = 'flex';
+    // --- Form Validation ---
+    function validateForm() {
+      let valid = true;
+      function req(id, errText) {
+        const el = document.getElementById(id);
+        if (!el.value.trim()) {
+          document.getElementById('err' + id.charAt(0).toUpperCase()+id.slice(1)).textContent = errText;
+          valid = false;
+        } else {
+          document.getElementById('err' + id.charAt(0).toUpperCase()+id.slice(1)).textContent = "";
+        }
       }
+      req('fullName', "Required");
+      req('dob', "Required");
+      req('idNumber', "Required");
+      req('nationality', "Required");
+      req('expiryDate', "Required");
+      // Gender
+      let gender = "";
+      document.querySelectorAll('input[name="gender"]').forEach(el => { if (el.checked) gender = el.value; });
+      if (!gender) {
+        document.getElementById('errGender').textContent = "Required";
+        valid = false;
+      } else {
+        document.getElementById('errGender').textContent = "";
+      }
+      // Disable submit if not valid or not all uploads
+      const btn = document.getElementById('submitBtn');
+      if (valid && uploadedImages.selfie && uploadedImages.frontid && uploadedImages.backid) {
+        btn.disabled = false;
+        btn.removeAttribute('title');
+      } else {
+        btn.disabled = true;
+        btn.setAttribute('title','Please complete all required fields');
+      }
+      return valid;
+    }
+
+    document.getElementById('identityFieldsForm').addEventListener('input', validateForm);
+
+    // --- Submit Logic + Popups ---
+    document.getElementById('identityFieldsForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const valid = validateForm();
+      if (!valid) {
+        showErrorPopup();
+        return;
+      }
+      // Save to localStorage (simulate)
+      localStorage.setItem('identityVerification', JSON.stringify({
+        selfie: uploadedImages.selfie,
+        frontid: uploadedImages.frontid,
+        backid: uploadedImages.backid,
+        fullName: document.getElementById('fullName').value,
+        dob: document.getElementById('dob').value,
+        idNumber: document.getElementById('idNumber').value,
+        nationality: document.getElementById('nationality').value,
+        gender: document.querySelector('input[name="gender"]:checked').value,
+        expiryDate: document.getElementById('expiryDate').value
+      }));
+      showSuccessPopup();
     });
-  });
-  document.querySelector('.img-modal-close').onclick = function(){
-    document.getElementById('img-modal').style.display = 'none';
-  };
-}
-setupImgModal();
 
-// --- AUTO-FILL MOCK (simulate OCR extraction) ---
-function checkBothUploads() {
-  if(frontIdData && backIdData) {
-    // Show autofill section with mock data
-    document.getElementById('auto-fill-section').style.display = "block";
-    document.getElementById('form-fields-section').style.display = "block";
-    // Simulated extracted info
-    let extracted = {
-      name: "John Mwangi Odhiambo",
-      id: "A1234567",
-      dob: "1992-06-18",
-      nation: "Kenyan",
-      gender: "Male"
-    };
-    // Fill extracted
-    document.getElementById('auto-fullname').textContent = extracted.name;
-    document.getElementById('auto-idnumber').textContent = extracted.id;
-    document.getElementById('auto-dob').textContent = extracted.dob;
-    document.getElementById('auto-nation').textContent = extracted.nation;
-    document.getElementById('auto-gender').textContent = extracted.gender;
-    // Match check (compare to fields, update indicators)
-    updateMatchIndicators(extracted);
-  }
-}
-function updateMatchIndicators(extracted) {
-  // Compare values
-  let name = document.getElementById('field-name').value.trim();
-  let idnum = document.getElementById('field-id').value.trim();
-  let dob = document.getElementById('field-dob').value.trim();
-  let nation = document.getElementById('field-nation').value.trim();
-  let gender = "";
-  document.querySelectorAll('input[name="gender"]').forEach(el=>{if(el.checked)gender=el.value});
-  // For demo, if empty, use extracted
-  if(!name) { document.getElementById('field-name').value = extracted.name; name = extracted.name; }
-  if(!idnum) { document.getElementById('field-id').value = extracted.id; idnum = extracted.id; }
-  if(!dob) { document.getElementById('field-dob').value = extracted.dob; dob = extracted.dob; }
-  if(!nation) { document.getElementById('field-nation').value = extracted.nation; nation = extracted.nation; }
-  if(!gender) {
-    document.querySelectorAll('input[name="gender"]').forEach(el=>{
-      if(el.value===extracted.gender) el.checked=true;
+    function showErrorPopup() {
+      document.getElementById('errorPopup').style.display = 'block';
+    }
+    document.getElementById('closeErrorPopup').onclick = function(){
+      document.getElementById('errorPopup').style.display = 'none';
+    }
+    document.getElementById('errorPopup').onclick = function(e){
+      if(e.target===this) this.style.display='none';
+    }
+
+    function showSuccessPopup() {
+      document.getElementById('successPopup').style.display = 'block';
+      // Confetti burst (simple)
+      setTimeout(()=>{ document.getElementById('successPopup').style.display = 'none'; }, 3000);
+    }
+
+    // --- Accessibility: Tab focus ---
+    document.querySelectorAll('.upload-card, .back-arrow, .submit-btn').forEach(el=>{
+      el.addEventListener('focus',function(){this.classList.add('focused');});
+      el.addEventListener('blur',function(){this.classList.remove('focused');});
     });
-    gender = extracted.gender;
-  }
-  // Matching indicators
-  setMatch('name', name === extracted.name);
-  setMatch('id', idnum === extracted.id);
-  setMatch('dob', dob === extracted.dob);
-  setMatch('nation', nation === extracted.nation);
-  setMatch('gender', gender === extracted.gender);
-}
-function setMatch(field, isMatch) {
-  const el = document.getElementById('match-'+field);
-  if(isMatch) {
-    el.textContent = '✅';
-    el.className = 'match-indicator match';
-  } else {
-    el.textContent = '⚠️';
-    el.className = 'match-indicator no-match';
-  }
-}
-// Update indicators live
-['field-name','field-id','field-dob','field-nation'].forEach(id=>{
-  document.getElementById(id).addEventListener('input',function(){
-    let extracted = {
-      name: document.getElementById('auto-fullname').textContent,
-      id: document.getElementById('auto-idnumber').textContent,
-      dob: document.getElementById('auto-dob').textContent,
-      nation: document.getElementById('auto-nation').textContent,
-      gender: document.getElementById('auto-gender').textContent
-    };
-    updateMatchIndicators(extracted);
-  });
-});
-document.querySelectorAll('input[name="gender"]').forEach(el=>{
-  el.addEventListener('change',function(){
-    let extracted = {
-      name: document.getElementById('auto-fullname').textContent,
-      id: document.getElementById('auto-idnumber').textContent,
-      dob: document.getElementById('auto-dob').textContent,
-      nation: document.getElementById('auto-nation').textContent,
-      gender: document.getElementById('auto-gender').textContent
-    };
-    updateMatchIndicators(extracted);
-  });
-});
-
-// --- FORM SUBMIT --- //
-function showError(id, msg) {
-  document.getElementById('error-'+id).textContent = msg;
-}
-function clearError(id) {
-  document.getElementById('error-'+id).textContent = '';
-}
-document.getElementById('guest-reg-form').addEventListener('submit',function(e){
-  e.preventDefault();
-  // Validate all fields (simple)
-  let ok = true;
-  let name = document.getElementById('field-name').value.trim();
-  let idnum = document.getElementById('field-id').value.trim();
-  let dob = document.getElementById('field-dob').value.trim();
-  let nation = document.getElementById('field-nation').value.trim();
-  let gender = "";
-  document.querySelectorAll('input[name="gender"]').forEach(el=>{if(el.checked)gender=el.value});
-  if(!name) { showError('name','Required'); ok=false; } else clearError('name');
-  if(!idnum) { showError('id','Required'); ok=false; } else clearError('id');
-  if(!dob) { showError('dob','Required'); ok=false; } else clearError('dob');
-  if(!nation) { showError('nation','Required'); ok=false; } else clearError('nation');
-  if(!gender) { showError('gender','Required'); ok=false; } else clearError('gender');
-  if(!frontIdData || !backIdData) {
-    showScanHint("Please upload BOTH sides of your ID before submitting.");
-    ok = false;
-  }
-  if(!ok) return;
-  // Simulate saving to localStorage
-  localStorage.setItem('guestReg', JSON.stringify({
-    name, idnum, dob, nation, gender, frontIdData, backIdData
-  }));
-  // Show success popup
-  document.getElementById('reg-success-popup').style.display = 'block';
-  setTimeout(()=>{ document.getElementById('reg-success-popup').style.display = 'none'; }, 4000);
-  // Optionally clear form
-  // this.reset();
-});
-
-// Accessibility: keyboard tab focus
-document.querySelectorAll('input,select,button').forEach(el=>{
-  el.addEventListener('focus',function(){this.classList.add('focused');});
-  el.addEventListener('blur',function(){this.classList.remove('focused');});
-});
-</script>
-
-  
- 
+  </script>
+</body>
+</html>
