@@ -258,47 +258,38 @@ input:focus, select:focus, button:focus { outline: 2px solid #d4af37; outline-of
 input, select, button { font-family: inherit; }
 input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #121212 inset; -webkit-text-fill-color: #F5F5F5;}
 </style>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Fade-in handled by CSS, slide-up handled by CSS
-  // Name field accessibility
   const loginForm = document.getElementById('login-form');
+
   loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
     const name = document.getElementById('login-name').value.trim();
     const role = document.getElementById('login-role').value;
+
     localStorage.setItem('casinoUserName', name);
     localStorage.setItem('casinoUserRole', role);
-    // Fade out section-login, then fake dashboard
-    document.getElementById('section-login').style.transition = "opacity 0.5s";
-    document.getElementById('section-login').style.opacity = 0;
-    setTimeout(() => {
-      document.getElementById('section-login').style.display = 'none';
-      showDashboard(name, role);
-    }, 500);
+
+    // Redirect based on role
+    if (role === 'User') {
+      window.location.href = 'user-registration.html';
+    } else if (role === 'Staff' || role === 'Admin') {
+      window.location.href = 'admin-dashboard.html';
+    }
   });
+
   document.getElementById('guest-btn').addEventListener('click', function() {
     localStorage.setItem('casinoUserName', 'Guest');
     localStorage.setItem('casinoUserRole', 'User');
-    document.getElementById('section-login').style.transition = "opacity 0.5s";
-    document.getElementById('section-login').style.opacity = 0;
-    setTimeout(() => {
-      document.getElementById('section-login').style.display = 'none';
-      showDashboard('Guest', 'User');
-    }, 500);
+    window.location.href = 'user-registration.html';
   });
-  // Keyboard accessibility for select
+
+  // Optional: Accessibility for dropdown
   document.getElementById('login-role').addEventListener('keydown', function(e){
     if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){ this.size = 3; }
     if(e.key === 'Escape' || e.key === 'Tab'){ this.size = 1; }
   });
 });
-
-function showDashboard(name, role) {
-  // Replace with real dashboard code
-  alert("Welcome, " + name + " (" + role + ")! [Dashboard would appear here]");
-}
 </script>
 
   <section id="user-registration">
