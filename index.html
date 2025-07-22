@@ -300,40 +300,36 @@ function showDashboard(name, role) {
   alert("Welcome, " + name + " (" + role + ")! [Dashboard would appear here]");
 }
 </script>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Millennium Casino – Identity Verification</title>
+  <title>User Registration – Millennium Casino</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Great+Vibes&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Inter:wght@400;600&family=Playfair+Display:wght@700&family=Great+Vibes&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
   <style>
+    html { scroll-padding-top: 80px; }
     body {
       background: #000;
-      min-height: 100vh;
-      font-family: 'Inter', Arial, sans-serif;
+      font-family: 'Montserrat', 'Inter', Arial, sans-serif;
       margin: 0;
-      color: #fff;
-      overflow-x: hidden;
+      min-height: 100vh;
+      color: #000;
     }
-
     .section3-container {
       max-width: 700px;
       margin: 0 auto;
-      background: #000;
-      box-shadow: 0 0 60px #d4af3722, 0 0 0 2px #d4af3733 inset;
-      border-radius: 18px;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
       padding: 5vh 5vw;
       position: relative;
-      z-index: 1;
+      margin-bottom: 3rem;
     }
-
-    /* --- Section 3 Header Group --- */
+    /* --- Header Block (DO NOT CHANGE) --- */
     .section3-header-group {
       display: flex;
       flex-direction: column;
@@ -344,10 +340,7 @@ function showDashboard(name, role) {
       width: 100%;
       position: relative;
     }
-    .section3-title-wrapper {
-      text-align: center;
-      width: 100%;
-    }
+    .section3-title-wrapper { text-align: center; width: 100%; }
     .section3-icon {
       color: #d4af37;
       font-size: 2.3rem;
@@ -391,392 +384,335 @@ function showDashboard(name, role) {
         text-shadow: 0 0 18px #d4af37, 0 0 8px #fff;
       }
     }
-
-    /* --- Back Arrow --- */
-    .back-arrow {
-      position: absolute;
-      top: 2vh;
-      left: 4vw;
-      z-index: 2;
-      width: 48px;
-      height: 48px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border-radius: 50%;
-      transition: box-shadow 0.3s, background 0.2s;
-    }
-    .back-arrow:focus, .back-arrow:hover {
-      box-shadow: 0 0 10px #d4af37cc, 0 0 4px #fff;
-      background: #181818;
-    }
-    .back-arrow i {
-      color: #d4af37;
-      font-size: 1.6rem;
-      pointer-events: none;
-    }
-
-    /* --- Progress Bar --- */
-    .progress-bar-wrap {
-      width: 100%;
-      margin: 1.2rem 0 2rem 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .progress-bar-bg {
-      background: #1a1a1a;
-      border-radius: 6px;
-      height: 10px;
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-    }
-    .progress-bar-fill {
-      position: absolute;
-      left: 0; top: 0;
-      height: 100%;
-      background: linear-gradient(90deg, #d4af37 0%, #eccd79 100%);
-      border-radius: 6px;
-      width: 0%;
-      transition: width 1.2s cubic-bezier(.68,-0.55,.27,1.55);
-    }
-    @media (max-width: 768px) {
-      .progress-bar-bg { height: 6px; }
-    }
-
-    /* --- Section Title & Subtext --- */
-    .section3-title-main {
-      text-align: center;
-      font-family: 'Inter', Arial, sans-serif;
-      font-size: 1.8rem;
+    /* -------- PAGE TITLE -------- */
+    .page-title {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 2rem;
       font-weight: 600;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.02em;
-      color: #fff;
-    }
-    .section3-title-sub {
       text-align: center;
+      margin-bottom: 1rem;
+      color: #000;
+    }
+    /* -------- WELCOME MESSAGE -------- */
+    .welcome-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      margin-bottom: 2rem;
+    }
+    .welcome-message {
       font-size: 1rem;
+      line-height: 1.6;
+      text-align: center;
       font-weight: 400;
-      color: #cccccc;
-      margin-bottom: 2rem;
+      color: #222;
+      max-width: 90%;
     }
+    .welcome-message .accent {
+      color: #ff007f;
+      font-weight: 600;
+    }
+    .welcome-info-tip {
+      color: #ff007f;
+      font-size: 1rem;
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .welcome-info-tip .fa-circle-info { margin-left: 4px; }
+    .popover {
+      display: none;
+      position: absolute;
+      left: 100%; top: 0;
+      background: #fff;
+      color: #222;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+      padding: 0.7em 1.2em;
+      font-size: 0.98rem;
+      z-index: 10;
+      white-space: nowrap;
+      margin-left: 0.5rem;
+      border: 1px solid #eee;
+    }
+    .welcome-info-tip:hover .popover,.welcome-info-tip:focus .popover { display: block; }
 
-    /* --- Upload Fields Block --- */
-    .upload-blocks-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 2rem;
-      margin-bottom: 2rem;
+    /* -------- GENERAL INFO -------- */
+    .section-label {
+      font-size: 1.11rem;
+      font-weight: 600;
+      color: #000;
+      margin: 2rem 0 1.2rem 0;
+      text-align: left;
+      letter-spacing: 0.01em;
     }
-    @media (max-width: 900px) {
-      .upload-blocks-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-      }
-    }
-    .upload-block {
+    .general-fields {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 1rem;
+      gap: 1.25rem;
+      margin-bottom: 0.6rem;
     }
-    .upload-label {
-      text-transform: uppercase;
-      color: #fff;
+    .general-fields label {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #222;
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.01em;
+    }
+    .general-fields input,
+    .general-fields select {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
       font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.6rem;
-      letter-spacing: 0.07em;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #fafafa;
+      color: #000;
     }
-    .upload-card {
-      width: 250px;
-      height: 250px;
-      max-width: 90vw;
-      max-height: 90vw;
-      background: #111;
-      border: 2px dashed #d4af37;
-      border-radius: 16px;
+    .general-fields input:focus,
+    .general-fields select:focus {
+      border-color: #ff007f;
+    }
+    .general-fields select { background: #fafafa; }
+    .section-note {
+      font-size: 0.92rem;
+      color: #999;
+      margin-top: 0.5rem;
+    }
+    /* -------- IDENTITY VERIFICATION -------- */
+    .identity-section {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+    .upload-row {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      cursor: pointer;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      box-shadow: 0 0 24px #d4af3711;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: space-between;
+      margin-bottom: 1.2rem;
     }
-    .upload-card:focus, .upload-card:hover {
-      border-color: #eccd79;
-      box-shadow: 0 0 24px #d4af37cc;
+    @media (max-width: 700px) {
+      .upload-row { flex-direction: column; gap: 1.2rem;}
+      .upload-box { width: 100%; }
     }
-    .upload-card-inner {
+    .upload-box {
+      flex: 1 1 250px;
+      background: #fafafa;
+      border: 2px dashed #ccc;
+      border-radius: 8px;
+      padding: 1.5rem;
       text-align: center;
-      color: #d4af37;
-      font-size: 1.2rem;
-      user-select: none;
+      cursor: pointer;
+      position: relative;
+      min-width: 220px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-bottom: 0.5rem;
     }
-    .upload-card-inner i {
-      font-size: 2.3rem;
-      margin-bottom: 0.6rem;
+    .upload-box:focus,.upload-box:hover { border-color: #ff007f; box-shadow: 0 0 12px #ff007f33; }
+    .upload-box .upload-icon {
+      font-size: 2.2rem;
+      color: #ff007f;
+      margin-bottom: 0.3rem;
       animation: camBlink 2s infinite;
     }
     @keyframes camBlink {
       0%,100% { opacity: 1;}
-      60% { opacity: 0.4;}
+      60% { opacity: 0.5;}
     }
-    .upload-preview {
-      width: 100%;
-      height: 100%;
+    .upload-box .upload-instruction {
+      font-size: 1rem;
+      color: #444;
+      font-weight: 500;
+    }
+    .upload-box .upload-file-info {
+      font-size: 0.91rem;
+      color: #666;
+      margin-top: 0.7rem;
+    }
+    .upload-preview-thumb {
+      width: 120px;
+      height: auto;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+      box-shadow: 0 2px 8px #ccc;
+      border: 1px solid #eee;
       object-fit: cover;
-      border-radius: 14px;
-      box-shadow: 0 0 16px #d4af37cc;
-      border: 2px solid #d4af37;
-      cursor: pointer;
-      transition: box-shadow 0.2s, transform 0.2s;
+      background: #fff;
     }
-    .upload-preview:hover { box-shadow: 0 0 32px #d4af37dd; transform: scale(1.03); }
-
-    /* --- OCR Processing --- */
-    .ocr-processing-block {
-      width: 100%;
+    /* -------- OCR FIELDS -------- */
+    .ocr-alert {
+      display: none;
+      background: #fff4e5;
+      color: #cc6600;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1.2rem;
+      font-size: 1rem;
+      font-weight: 500;
+      border: 1px solid #ffe1b3;
+      box-shadow: 0 2px 8px #ffe1b355;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 0.7em;
+    }
+    .ocr-alert .fa-triangle-exclamation {
+      font-size: 1.3em;
+      margin-right: 0.3em;
+    }
+    .ocr-info-pop {
+      display: none;
+      position: relative;
+      background: #fafafa;
+      color: #222;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+      padding: 1em 1.1em 1em 1.6em;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    .ocr-info-pop .ocr-pop-close {
+      position: absolute;
+      top: 8px;
+      right: 16px;
+      color: #ff007f;
+      font-size: 1.3em;
+      font-weight: bold;
+      background: none;
+      border: none;
+      cursor: pointer;
+      outline: none;
+    }
+    .ocr-fields-row {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      margin-bottom: 2rem;
-      min-height: 38px;
+      gap: 1.2rem;
+      margin-bottom: 1rem;
     }
-    .ocr-loader {
-      margin-bottom: 0.7rem;
+    .ocr-fields-row label {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #222;
+      margin-bottom: 0.3rem;
+    }
+    .ocr-fields-row input {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      outline: none;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #fafafa;
+      color: #000;
+      transition: border-color 0.2s;
+    }
+    .ocr-fields-row input:focus { border-color: #ff007f; }
+    /* -------- CHECKBOXES -------- */
+    .checkboxes-section {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      flex-direction: column;
       gap: 1rem;
     }
-    .loader-ring {
-      border: 4px solid #d4af3711;
-      border-left-color: #d4af37;
-      border-radius: 50%;
-      width: 32px;
-      height: 32px;
-      animation: spinLoader 1s linear infinite;
-      margin-right: 0.5rem;
-    }
-    @keyframes spinLoader { 100% { transform: rotate(360deg); } }
-    .ocr-status-text {
-      color: #d4af37;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-    .ocr-status-error {
-      color: #c40000;
-      background: #181818;
-      border: 2px solid #c40000;
-      border-radius: 12px;
-      padding: 0.8rem 1.2rem;
-      font-size: 1.1rem;
-      font-weight: 600;
-      width: 100%;
-      margin-top: 0.6rem;
-      text-align: center;
-      box-shadow: 0 0 16px #c40000aa;
-      animation: errorSlideIn 0.6s;
-    }
-    @keyframes errorSlideIn { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
-    /* --- Parsed OR Manual Fields Block --- */
-    .fields-block {
-      width: 100%;
-      margin-top: 2rem;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-    }
-    @media (max-width: 900px) {
-      .fields-block {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-    }
-    .field-group {
+    .checkbox-row {
       display: flex;
-      flex-direction: column;
-      margin-bottom: 0.5rem;
-      position: relative;
-    }
-    .field-label {
-      color: #fff;
-      text-transform: uppercase;
+      align-items: center;
+      gap: 0.7em;
       font-size: 0.95rem;
-      font-weight: 600;
-      letter-spacing: 0.07em;
-      margin-bottom: 0.5em;
     }
-    .field-input {
-      background: #181818;
-      color: #fff;
-      border: 2px solid #d4af3711;
-      border-radius: 10px;
-      padding: 0.9em 1em;
-      font-size: 1rem;
-      font-family: inherit;
-      margin-bottom: 0.3em;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      outline: none;
-      min-height: 48px;
+    .checkbox-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #ff007f;
+      border-radius: 4px;
+      margin-right: 0.6em;
     }
-    .field-input:focus {
-      border-color: #d4af37;
-      box-shadow: 0 0 8px #d4af37cc;
+    .checkbox-row a {
+      color: #ff007f;
+      text-decoration: underline;
+      font-weight: 500;
     }
-    .field-error {
-      color: #c40000;
-      font-size: 0.93em;
-      min-height: 18px;
-      font-weight: 600;
-      margin: 0.2em 0;
-    }
-    .gender-radio-row {
-      display: flex;
-      gap: 1.6em;
-      margin-top: 0.2em;
-    }
-    .gender-radio-row label {
-      font-size: 1em; color: #fff; font-weight: 500;
-    }
-    .gender-radio-row input[type="radio"] {
-      accent-color: #d4af37; cursor:pointer;
-    }
-
-    /* --- Submit Button --- */
-    .submit-btn-block {
-      width: 100%;
+    /* -------- SUBMIT BUTTON -------- */
+    .submit-area {
       margin-top: 3rem;
-      display: flex;
-      justify-content: center;
+      margin-bottom: 1rem;
     }
     .submit-btn {
       width: 100%;
-      min-height: 50px;
-      background: linear-gradient(90deg,#D4AF37 80%,#eccd79 100%);
-      color: #181818;
-      font-family: 'Inter', Arial, sans-serif;
-      font-size: 1.2rem;
-      font-weight: bold;
-      border-radius: 1.2em;
+      height: 3rem;
+      background: #ff007f;
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 10px;
       border: none;
-      text-transform: uppercase;
-      box-shadow: 0 2px 10px #d4af3722;
       cursor: pointer;
-      transition: box-shadow 0.3s, transform 0.2s, opacity 0.2s;
-      letter-spacing: 0.09em;
+      box-shadow: 0 2px 8px #ff007f33;
+      transition: background 0.2s, box-shadow 0.2s, opacity 0.2s;
+      text-transform: uppercase;
     }
     .submit-btn:disabled {
-      opacity: 0.55;
+      opacity: 0.6;
       cursor: not-allowed;
-      pointer-events: auto;
-      position: relative;
-    }
-    .submit-btn[title]:hover::after {
-      content: attr(title);
-      position: absolute;
-      left: 50%;
-      top: -2.2em;
-      transform: translateX(-50%);
-      background: #181818;
-      color: #d4af37;
-      padding: 0.5em 1em;
-      border-radius: 8px;
-      font-size: 0.95em;
-      box-shadow: 0 0 10px #d4af3722;
-      white-space: nowrap;
-      z-index: 20;
-      opacity: 1;
+      background: #999;
+      color: #fff;
+      box-shadow: none;
     }
     .submit-btn:not(:disabled):hover {
-      box-shadow: 0 0 24px #d4af37cc, 0 0 8px #fff;
-      transform: scale(1.04);
+      background: #ff43a1;
+      box-shadow: 0 4px 12px #ff007f55;
     }
-
-    /* --- Popup Animation: Error & Success --- */
-    .popup-modal {
-      position: fixed;
-      left: 50%;
-      bottom: 4vh;
-      transform: translateX(-50%);
-      background: #181818;
-      border-radius: 14px;
-      box-shadow: 0 6px 28px #d4af37cc;
-      z-index: 999;
-      min-width: 300px;
-      max-width: 94vw;
-      padding: 1.4rem 1.8rem;
-      color: #fff;
-      font-family: 'Inter', Arial, sans-serif;
-      text-align: center;
-      font-size: 1.1rem;
-      animation: popupSlideIn 0.7s;
-    }
-    @keyframes popupSlideIn { from { transform: translate(-50%,80px); opacity: 0; } to { transform: translate(-50%,0); opacity: 1; } }
-    .popup-modal.error { border:2px solid #c40000; color:#c40000; }
-    .popup-modal.success {
-      border:2px solid #d4af37;
-      color: #d4af37;
-      font-weight: bold;
-      background: #181818;
-      box-shadow: 0 0 80px #d4af37cc;
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 1.3rem;
-      padding: 2rem 3rem;
-      animation: popupSlideIn 0.7s, shimmerConfetti 1.4s;
-    }
-    @keyframes shimmerConfetti {
-      0% { box-shadow: 0 0 10px #d4af37cc;}
-      50% { box-shadow: 0 0 80px #d4af37cc;}
-      100% { box-shadow: 0 0 10px #d4af37cc;}
-    }
-    .popup-modal .popup-close {
+    .loader {
+      border: 4px solid #fff;
+      border-top: 4px solid #ff007f;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      animation: spinLoader 1s linear infinite;
       display: inline-block;
-      margin-top: 1.6rem;
-      padding: 0.7em 2em;
-      background: #d4af37;
-      color: #181818;
-      font-weight: bold;
-      border-radius: 8px;
-      border: none;
-      cursor: pointer;
-      font-size: 1em;
-      box-shadow: 0 2px 8px #d4af3722;
+      vertical-align: middle;
+      margin-right: 1em;
+    }
+    @keyframes spinLoader { 100% { transform: rotate(360deg); } }
+    .success-message {
+      font-size: 1rem;
+      color: #28a745;
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+    .review-message {
+      font-size: 1rem;
+      color: #222;
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 500;
+      opacity: 0.8;
     }
 
-    /* --- Accessibility --- */
-    input:focus,select:focus,button:focus{outline:2px solid #d4af37;outline-offset:2px;}
-    input,select,button{font-family:inherit;}
-    @media(max-width:480px){
-      .section3-container { padding: 2vh 2vw; }
-      .section3-title-top { font-size: 1.8rem; }
-      .section3-title-bottom { font-size: 1.4rem; }
-      .fields-block { grid-template-columns: 1fr; gap: 1rem; }
-      .upload-blocks-grid { grid-template-columns: 1fr; gap: 1rem;}
-      .upload-card { width:90vw; height:90vw; min-width:180px; min-height:180px;}
-      .submit-btn { font-size: 1rem; min-height: 48px; }
-      .popup-modal { font-size: 1rem; padding: 1rem 1vw;}
+    /* Responsive adjustments */
+    @media (max-width:700px){
+      .section3-container { padding: 3vh 2vw; }
+      .page-title { font-size: 1.5rem;}
+      .upload-box { min-width: 180px;}
+    }
+    @media (max-width:500px){
+      .section3-container { padding: 1vh 1vw;}
+      .page-title { font-size: 1.2rem;}
+      .welcome-message,.ocr-fields-row label { font-size: 0.98rem;}
     }
   </style>
 </head>
 <body>
   <div class="section3-container">
-
-    <!-- Back Arrow -->
-    <div class="back-arrow" tabindex="0" aria-label="Go Back to Previous Step" title="Back">
-      <i class="fa-solid fa-arrow-left"></i>
-    </div>
-
-    <!-- Header & Branding -->
+    <!-- Header - DO NOT CHANGE -->
     <div class="section3-header-group">
       <i class="fa-solid fa-shield-halved section3-icon" aria-hidden="true"></i>
       <div class="section3-title-wrapper">
@@ -785,294 +721,233 @@ function showDashboard(name, role) {
       </div>
     </div>
 
-    <!-- Progress Indicator Bar -->
-    <div class="progress-bar-wrap">
-      <div class="progress-bar-bg">
-        <div class="progress-bar-fill" id="progressBarFill"></div>
+    <!-- Page Title -->
+    <div class="page-title" data-i18n="user_registration_title">User Registration</div>
+
+    <!-- Welcome Message + Info Tip -->
+    <div class="welcome-row">
+      <div class="welcome-message">
+        Welcome to <span class="accent">Millennium Casino</span>! Please complete the steps below to register your account and verify your identity.
+      </div>
+      <div class="welcome-info-tip" tabindex="0">
+        <i class="fa-solid fa-circle-info"></i>
+        <span class="popover">Some fields will be auto-filled if OCR works correctly.</span>
       </div>
     </div>
 
-    <!-- Section Title -->
-    <div class="section3-title-main">Identity Verification</div>
-    <div class="section3-title-sub">To complete your account setup, we need to verify your identity.</div>
+    <!-- General Info Section -->
+    <div class="section-label" data-i18n="update_general_info">Update Your General Information</div>
+    <form id="registrationForm" autocomplete="off">
+      <div class="general-fields">
+        <label for="fullName">Full Name *</label>
+        <input type="text" id="fullName" name="fullName" required placeholder="e.g. John Mwangi Odhiambo">
 
-    <!-- Upload Fields Block -->
-    <div class="upload-blocks-grid">
-      <div class="upload-block">
-        <div class="upload-label">Upload Selfie</div>
-        <div class="upload-card" id="selfie-upload" tabindex="0" aria-label="Upload Selfie">
-          <div class="upload-card-inner">
-            <i class="fa-solid fa-user"></i>
-            <div>Tap to upload</div>
-          </div>
-        </div>
-      </div>
-      <div class="upload-block">
-        <div class="upload-label">Upload Front of ID</div>
-        <div class="upload-card" id="frontid-upload" tabindex="0" aria-label="Upload Front of ID">
-          <div class="upload-card-inner">
-            <i class="fa-regular fa-address-card"></i>
-            <div>Tap to upload</div>
-          </div>
-        </div>
-      </div>
-      <div class="upload-block">
-        <div class="upload-label">Upload Back of ID</div>
-        <div class="upload-card" id="backid-upload" tabindex="0" aria-label="Upload Back of ID">
-          <div class="upload-card-inner">
-            <i class="fa-solid fa-id-card"></i>
-            <div>Tap to upload</div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <label for="email">Email Address *</label>
+        <input type="email" id="email" name="email" required placeholder="e.g. john@email.com">
 
-    <!-- OCR Processing & Animation -->
-    <div class="ocr-processing-block" id="ocrProcessingBlock" style="display:none;">
-      <div class="ocr-loader">
-        <span class="loader-ring"></span>
-        <span class="ocr-status-text">Extracting text from ID...</span>
-      </div>
-    </div>
-    <div class="ocr-status-error" id="ocrErrorBlock" style="display:none;">
-      <i class="fa-solid fa-circle-exclamation"></i> We couldn’t detect details automatically. Please fill in the fields below.
-    </div>
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" name="phone" required placeholder="e.g. +254700000000">
 
-    <!-- Parsed / Manual Fields Block -->
-    <form id="identityFieldsForm" autocomplete="off">
-      <div class="fields-block" id="fieldsBlock" style="display:none;">
-        <div class="field-group">
-          <label class="field-label" for="fullName">Full Name</label>
-          <input type="text" class="field-input" id="fullName" name="fullName" autocomplete="name" required>
-          <div class="field-error" id="errFullName"></div>
-        </div>
-        <div class="field-group">
-          <label class="field-label" for="dob">Date of Birth</label>
-          <input type="date" class="field-input" id="dob" name="dob" required>
-          <div class="field-error" id="errDob"></div>
-        </div>
-        <div class="field-group">
-          <label class="field-label" for="idNumber">ID Number</label>
-          <input type="text" class="field-input" id="idNumber" name="idNumber" required>
-          <div class="field-error" id="errIdNumber"></div>
-        </div>
-        <div class="field-group">
-          <label class="field-label" for="nationality">Nationality / Country of Issue</label>
-          <input type="text" class="field-input" id="nationality" name="nationality" required>
-          <div class="field-error" id="errNationality"></div>
-        </div>
-        <div class="field-group">
-          <label class="field-label">Gender</label>
-          <div class="gender-radio-row">
-            <label><input type="radio" name="gender" value="Male"> Male</label>
-            <label><input type="radio" name="gender" value="Female"> Female</label>
-            <label><input type="radio" name="gender" value="Other"> Other</label>
+        <label for="gender">Gender *</label>
+        <select id="gender" name="gender" required>
+          <option value="">Select...</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="country">Country of Residence *</label>
+        <select id="country" name="country" required>
+          <option value="">Select...</option>
+          <option value="Kenya">Kenya</option>
+          <option value="Uganda">Uganda</option>
+          <option value="Tanzania">Tanzania</option>
+          <option value="Rwanda">Rwanda</option>
+          <option value="Burundi">Burundi</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="section-note">Fields marked with * are required.</div>
+
+      <!-- Identity Verification Section -->
+      <div class="identity-section">
+        <div class="section-label" data-i18n="identity_verification">Identity Verification</div>
+        <div class="upload-row">
+          <div class="upload-box" id="uploadFront">
+            <div class="upload-icon"><i class="fa-solid fa-id-card"></i></div>
+            <div class="upload-instruction">Upload Front of ID/Passport</div>
+            <div class="upload-file-info">Accepted: JPG, PNG, PDF. Max size: 2MB</div>
           </div>
-          <div class="field-error" id="errGender"></div>
+          <div class="upload-box" id="uploadBack">
+            <div class="upload-icon"><i class="fa-solid fa-id-card"></i></div>
+            <div class="upload-instruction">Upload Back of ID (if applicable)</div>
+            <div class="upload-file-info">Accepted: JPG, PNG, PDF. Max size: 2MB</div>
+          </div>
+          <div class="upload-box" id="uploadSelfie">
+            <div class="upload-icon"><i class="fa-solid fa-user"></i></div>
+            <div class="upload-instruction">Upload Selfie Holding ID</div>
+            <div class="upload-file-info">Accepted: JPG, PNG, PDF. Max size: 2MB</div>
+          </div>
         </div>
-        <div class="field-group">
-          <label class="field-label" for="expiryDate">Expiry Date</label>
-          <input type="date" class="field-input" id="expiryDate" name="expiryDate" required>
-          <div class="field-error" id="errExpiryDate"></div>
+        <div id="uploadPreviews"></div>
+      </div>
+
+      <!-- OCR Alert (if fail) -->
+      <div class="ocr-alert" id="ocrAlert">
+        <i class="fa-solid fa-triangle-exclamation"></i>
+        OCR could not extract your ID details. Please enter them manually. Your photos are still saved securely.
+      </div>
+
+      <!-- OCR Info Pop (above fields) -->
+      <div class="ocr-info-pop" id="ocrInfoPop">
+        We tried auto-filling your details. Please confirm or correct them.
+        <button type="button" class="ocr-pop-close" id="closeOcrPop">&times;</button>
+      </div>
+
+      <!-- OCR/Manual Fields -->
+      <div class="ocr-fields-row" id="ocrFieldsRow">
+        <label for="ocrName">Name on ID *</label>
+        <input type="text" id="ocrName" name="ocrName" required>
+
+        <label for="ocrIdNum">ID Number *</label>
+        <input type="text" id="ocrIdNum" name="ocrIdNum" required>
+
+        <label for="ocrDob">Date of Birth *</label>
+        <input type="date" id="ocrDob" name="ocrDob" required>
+
+        <label for="ocrNation">Nationality *</label>
+        <input type="text" id="ocrNation" name="ocrNation" required>
+
+        <label for="ocrSerial">ID Serial Number *</label>
+        <input type="text" id="ocrSerial" name="ocrSerial" required>
+      </div>
+
+      <!-- Checkboxes Section -->
+      <div class="checkboxes-section">
+        <div class="checkbox-row">
+          <input type="checkbox" id="ocrConfirm" required>
+          <label for="ocrConfirm">I confirm that the auto-filled OCR data is accurate, or I have corrected it manually.</label>
+        </div>
+        <div class="checkbox-row">
+          <input type="checkbox" id="termsConfirm" required>
+          <label for="termsConfirm">
+            I agree to the
+            <a href="#" target="_blank">Terms & Conditions</a>
+            and
+            <a href="#" target="_blank">Privacy Policy</a>.
+          </label>
         </div>
       </div>
-      <div class="submit-btn-block">
-        <button type="submit" class="submit-btn" id="submitBtn" disabled title="Please complete all required fields">Continue to Final Step</button>
+
+      <!-- Final Submit Area -->
+      <div class="submit-area" id="submitArea">
+        <button type="submit" class="submit-btn" id="submitBtn" disabled>Submit Details</button>
+      </div>
+
+      <!-- Success & Review Messages -->
+      <div class="success-message" id="successMsg" style="display:none;">
+        <span class="loader"></span> Thank you! Your details have been submitted successfully for verification.
+      </div>
+      <div class="review-message" id="reviewMsg" style="display:none;">
+        Please wait while we review your documents. You will receive an email notification once verification is complete.
       </div>
     </form>
   </div>
-
-  <!-- Error Popup -->
-  <div id="errorPopup" class="popup-modal error" style="display:none;">
-    <div>
-      <i class="fa-solid fa-circle-exclamation"></i>
-      You must complete identity verification to proceed.
-    </div>
-    <button class="popup-close" id="closeErrorPopup">OK</button>
-  </div>
-  <!-- Success Popup -->
-  <div id="successPopup" class="popup-modal success" style="display:none;">
-    <div>
-      <i class="fa-solid fa-circle-check"></i>
-      Verification submitted successfully.<br>
-      You're almost done!
-    </div>
-  </div>
-
   <script>
-    // --- Progress Bar Animation ---
-    window.addEventListener('DOMContentLoaded', () => {
-      setTimeout(() => {
-        document.getElementById('progressBarFill').style.width = '66%';
-      }, 300);
-    });
-
-    // --- Back Arrow ---
-    document.querySelector('.back-arrow').addEventListener('click', () => {
-      // Change this to your section navigation as needed
-      window.location.hash = '#section-login';
-    });
-    document.querySelector('.back-arrow').addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' || e.key === ' ') document.querySelector('.back-arrow').click();
-    });
-
-    // --- Upload Blocks Logic ---
-    let uploadedImages = { selfie: "", frontid: "", backid: "" };
-
-    function handleUpload(target) {
+    // --- Upload logic ---
+    let uploads = { front: null, back: null, selfie: null };
+    function handleUpload(field) {
       const input = document.createElement('input');
       input.type = 'file';
-      input.accept = "image/jpeg,image/png";
-      input.click();
+      input.accept = ".jpg,.jpeg,.png,.pdf";
       input.onchange = function() {
         const file = input.files[0];
         if (!file) return;
+        if (file.size > 2*1024*1024) {
+          alert("Max file size is 2MB.");
+          return;
+        }
         const reader = new FileReader();
         reader.onload = function(ev) {
-          uploadedImages[target] = ev.target.result;
-          const card = document.getElementById(target + '-upload');
-          card.innerHTML = `<img src="${ev.target.result}" alt="${target}" class="upload-preview" />`;
-          card.classList.add('uploaded');
-          checkUploadsAndShowOCR();
+          uploads[field] = { name: file.name, data: ev.target.result };
+          showPreview(field, ev.target.result, file.name);
+          checkEnableSubmit();
+          // Simulate OCR after both ID sides and selfie uploaded
+          if (uploads.front && uploads.selfie) simulateOCR();
         };
-        reader.readAsDataURL(file);
-      };
-    }
-
-    ['selfie','frontid','backid'].forEach(target => {
-      document.getElementById(target + '-upload').addEventListener('click', () => handleUpload(target));
-      document.getElementById(target + '-upload').addEventListener('keydown', (e) => {
-        if(e.key === 'Enter' || e.key === ' ') handleUpload(target);
-      });
-    });
-
-    // --- OCR Simulation ---
-    let ocrStatus = null;
-    function checkUploadsAndShowOCR() {
-      // Only start OCR if all three images uploaded
-      if (uploadedImages.selfie && uploadedImages.frontid && uploadedImages.backid && !ocrStatus) {
-        // Show loader
-        document.getElementById('ocrProcessingBlock').style.display = 'flex';
-        document.getElementById('ocrErrorBlock').style.display = 'none';
-        ocrStatus = "processing";
-        setTimeout(() => {
-          // Randomly succeed or fail
-          const success = Math.random() > 0.35;
-          if (success) {
-            document.getElementById('ocrProcessingBlock').style.display = 'none';
-            showFields(true);
-          } else {
-            document.getElementById('ocrProcessingBlock').style.display = 'none';
-            document.getElementById('ocrErrorBlock').style.display = 'block';
-            showFields(false);
-          }
-          ocrStatus = success ? "success" : "fail";
-        }, 2200 + Math.random()*2200); // Simulate 2.2s-4.4s loading
-      }
-    }
-
-    function showFields(autofill) {
-      const block = document.getElementById('fieldsBlock');
-      block.style.display = 'grid';
-      if (autofill) {
-        document.getElementById('fullName').value = "John Mwangi Odhiambo";
-        document.getElementById('dob').value = "1992-06-18";
-        document.getElementById('idNumber').value = "A1234567";
-        document.getElementById('nationality').value = "Kenyan";
-        document.querySelector('input[name="gender"][value="Male"]').checked = true;
-        document.getElementById('expiryDate').value = "2032-06-18";
-      } else {
-        // Clear all if manual
-        ['fullName','dob','idNumber','nationality','expiryDate'].forEach(id => document.getElementById(id).value = "");
-        document.querySelectorAll('input[name="gender"]').forEach(el => el.checked = false);
-      }
-      validateForm();
-    }
-
-    // --- Form Validation ---
-    function validateForm() {
-      let valid = true;
-      function req(id, errText) {
-        const el = document.getElementById(id);
-        if (!el.value.trim()) {
-          document.getElementById('err' + id.charAt(0).toUpperCase()+id.slice(1)).textContent = errText;
-          valid = false;
+        if (file.type.match(/pdf$/)) {
+          // just fake preview for PDF
+          reader.onload = function() {
+            uploads[field] = { name: file.name, data: null };
+            showPreview(field, null, file.name);
+            checkEnableSubmit();
+            if (uploads.front && uploads.selfie) simulateOCR();
+          };
+          reader.readAsArrayBuffer(file);
         } else {
-          document.getElementById('err' + id.charAt(0).toUpperCase()+id.slice(1)).textContent = "";
+          reader.readAsDataURL(file);
         }
-      }
-      req('fullName', "Required");
-      req('dob', "Required");
-      req('idNumber', "Required");
-      req('nationality', "Required");
-      req('expiryDate', "Required");
-      // Gender
-      let gender = "";
-      document.querySelectorAll('input[name="gender"]').forEach(el => { if (el.checked) gender = el.value; });
-      if (!gender) {
-        document.getElementById('errGender').textContent = "Required";
-        valid = false;
-      } else {
-        document.getElementById('errGender').textContent = "";
-      }
-      // Disable submit if not valid or not all uploads
-      const btn = document.getElementById('submitBtn');
-      if (valid && uploadedImages.selfie && uploadedImages.frontid && uploadedImages.backid) {
-        btn.disabled = false;
-        btn.removeAttribute('title');
-      } else {
-        btn.disabled = true;
-        btn.setAttribute('title','Please complete all required fields');
-      }
-      return valid;
+      };
+      input.click();
     }
-
-    document.getElementById('identityFieldsForm').addEventListener('input', validateForm);
-
-    // --- Submit Logic + Popups ---
-    document.getElementById('identityFieldsForm').addEventListener('submit', function(e) {
+    function showPreview(field, dataUrl, fileName) {
+      const boxId = field === 'front' ? 'uploadFront' : field === 'back' ? 'uploadBack' : 'uploadSelfie';
+      const box = document.getElementById(boxId);
+      box.innerHTML = '';
+      let previewHTML = '';
+      if (dataUrl) {
+        previewHTML = `<img src="${dataUrl}" alt="${fileName}" class="upload-preview-thumb"><div style="font-size:0.91rem;margin-top:0.3em;color:#666;">${fileName}</div>`;
+      } else {
+        previewHTML = `<div style="font-size:1.6rem;margin-top:0.3em;color:#999;"><i class="fa-solid fa-file-pdf"></i></div><div style="font-size:0.91rem;margin-top:0.3em;color:#666;">${fileName}</div>`;
+      }
+      box.innerHTML = previewHTML;
+    }
+    document.getElementById('uploadFront').onclick = ()=>handleUpload('front');
+    document.getElementById('uploadBack').onclick = ()=>handleUpload('back');
+    document.getElementById('uploadSelfie').onclick = ()=>handleUpload('selfie');
+    // --- OCR Simulation ---
+    function simulateOCR() {
+      // Show pop-up and auto-fill (simulate success/fail)
+      let ocrSuccess = Math.random() > 0.25;
+      document.getElementById('ocrInfoPop').style.display = 'block';
+      if (!ocrSuccess) {
+        document.getElementById('ocrAlert').style.display = 'flex';
+        // Clear fields
+        ['ocrName','ocrIdNum','ocrDob','ocrNation','ocrSerial'].forEach(id=>document.getElementById(id).value="");
+      } else {
+        document.getElementById('ocrAlert').style.display = 'none';
+        document.getElementById('ocrName').value = "John Mwangi Odhiambo";
+        document.getElementById('ocrIdNum').value = "A1234567";
+        document.getElementById('ocrDob').value = "1992-06-18";
+        document.getElementById('ocrNation').value = "Kenyan";
+        document.getElementById('ocrSerial').value = "ID2025009";
+      }
+      checkEnableSubmit();
+    }
+    document.getElementById('closeOcrPop').onclick = function() {
+      document.getElementById('ocrInfoPop').style.display = 'none';
+    };
+    // --- Enable submit button ---
+    function checkEnableSubmit() {
+      const allGeneral = ['fullName','email','phone','gender','country'].every(id=>document.getElementById(id).value.trim().length > 0);
+      const allUploads = uploads.front && uploads.selfie; // back is optional
+      const allOcr = ['ocrName','ocrIdNum','ocrDob','ocrNation','ocrSerial'].every(id=>document.getElementById(id).value.trim().length > 0);
+      const checks = document.getElementById('ocrConfirm').checked && document.getElementById('termsConfirm').checked;
+      document.getElementById('submitBtn').disabled = !(allGeneral && allUploads && allOcr && checks);
+    }
+    document.getElementById('registrationForm').addEventListener('input', checkEnableSubmit);
+    document.querySelectorAll('.checkboxes-section input[type="checkbox"]').forEach(cb=>cb.onchange=checkEnableSubmit);
+    // --- Submit behavior ---
+    document.getElementById('registrationForm').onsubmit = function(e) {
       e.preventDefault();
-      const valid = validateForm();
-      if (!valid) {
-        showErrorPopup();
-        return;
-      }
-      // Save to localStorage (simulate)
-      localStorage.setItem('identityVerification', JSON.stringify({
-        selfie: uploadedImages.selfie,
-        frontid: uploadedImages.frontid,
-        backid: uploadedImages.backid,
-        fullName: document.getElementById('fullName').value,
-        dob: document.getElementById('dob').value,
-        idNumber: document.getElementById('idNumber').value,
-        nationality: document.getElementById('nationality').value,
-        gender: document.querySelector('input[name="gender"]:checked').value,
-        expiryDate: document.getElementById('expiryDate').value
-      }));
-      showSuccessPopup();
-    });
-
-    function showErrorPopup() {
-      document.getElementById('errorPopup').style.display = 'block';
-    }
-    document.getElementById('closeErrorPopup').onclick = function(){
-      document.getElementById('errorPopup').style.display = 'none';
-    }
-    document.getElementById('errorPopup').onclick = function(e){
-      if(e.target===this) this.style.display='none';
-    }
-
-    function showSuccessPopup() {
-      document.getElementById('successPopup').style.display = 'block';
-      // Confetti burst (simple)
-      setTimeout(()=>{ document.getElementById('successPopup').style.display = 'none'; }, 3000);
-    }
-
-    // --- Accessibility: Tab focus ---
-    document.querySelectorAll('.upload-card, .back-arrow, .submit-btn').forEach(el=>{
-      el.addEventListener('focus',function(){this.classList.add('focused');});
-      el.addEventListener('blur',function(){this.classList.remove('focused');});
-    });
+      document.getElementById('submitBtn').style.display='none';
+      document.getElementById('successMsg').style.display='block';
+      setTimeout(()=>{
+        document.getElementById('successMsg').style.display='none';
+        document.getElementById('reviewMsg').style.display='block';
+      },2200);
+      // After another 2s, you could redirect, etc.
+    };
   </script>
 </body>
 </html>
