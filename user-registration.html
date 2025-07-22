@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Registration – Millennium Casino</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Montserrat:wght@400;600&family=Inter:wght@400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+  <!-- (Optional) Your favicon and meta tags can go here -->
+</head>
+<body>
+  <section id="user-registration">
+    <style>
+      html { scroll-padding-top: 80px; }
+      body {
+        background: #000;
+        font-family: 'Montserrat', 'Inter', Arial, sans-serif;
+        margin: 0;
+        min-height: 100vh;
+        color: #000;
+      }
+      .section3-container {
+        max-width: 700px;
+        margin: 0 auto;
+        background: #000;
+        color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        padding: 5vh 5vw;
+        position: relative;
+        margin-bottom: 3rem;
+      }
+      /* --- Header Block (DO NOT CHANGE) --- */
+      .section3-header-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.3em;
+        margin-bottom: 2rem;
+        width: 100%;
+        position: relative;
+      }
+      .section3-title-wrapper { text-align: center; width: 100%; }
+      .section3-icon {
+        color: #d4af37;
+        font-size: 2.3rem;
+        margin-bottom: 0.2em;
+        filter: drop-shadow(0 0 6px #d4af3788);
+        animation: shieldPulse 2.8s infinite;
+      }
+      @keyframes shieldPulse {
+        0%,100% { filter: drop-shadow(0 0 6px #d4af3788);}
+        50% { filter: drop-shadow(0 0 18px #d4af37cc);}
+      }
+      .section3-title-top {
+        font-family: 'Playfair Display', serif;
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 0.15em;
+        background: linear-gradient(90deg, #d4af37 40%, #eccd79 75%, #d4af37 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: -0.35em;
+        text-align: center;
+      }
+      .section3-title-bottom {
+        font-family: 'Great Vibes', cursive;
+        font-size: clamp(1.6rem, 5vw, 2.2rem);
+        color: #fdf6e3;
+        text-shadow: 0 0 8px #d4af37, 0 0 2px #fff;
+        margin-top: -0.7em;
+        position: relative;
+        text-align: center;
+        animation: section3Twinkle 3s ease-in-out infinite;
+        font-style: italic;
+      }
+      @keyframes section3Twinkle {
+        0%, 100% {
+          text-shadow: 0 0 8px #d4af37, 0 0 2px #fff;
+        }
+        60% {
+          text-shadow: 0 0 18px #d4af37, 0 0 8px #fff;
+        }
+      }
+      /* -------- PAGE TITLE -------- */
+      .page-title {
+        font-family: 'Montserrat', Arial, sans-serif;
+        font-size: 2rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 1rem;
+        color: #fff;
+      }
+      /* -------- WELCOME MESSAGE -------- */
+      .welcome-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.7rem;
+        margin-bottom: 2rem;
+      }
+      .welcome-message {
+        font-size: 1rem;
+        line-height: 1.6;
+        text-align: center;
+        font-weight: 400;
+        color: #fff;
+        max-width: 90%;
+      }
+      .welcome-message .accent {
+        color: #D3AF37;
+        font-weight: 600;
+      }
+      .welcome-info-tip {
+        color: #ff007f;
+        font-size: 1rem;
+        cursor: pointer;
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+      .welcome-info-tip .fa-circle-info { margin-left: 4px; }
+      .popover {
+        display: none;
+        position: absolute;
+        left: 100%; top: 0;
+        background: #fff;
+        color: #222;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+        padding: 0.7em 1.2em;
+        font-size: 0.98rem;
+        z-index: 10;
+        white-space: nowrap;
+        margin-left: 0.5rem;
+        border: 1px solid #eee;
+      }
+      .welcome-info-tip:hover .popover,.welcome-info-tip:focus .popover { display: block; }
+
+      /* -------- GENERAL INFO -------- */
+      .section-label {
+        font-size: 1.11rem;
+        font-weight: 600;
+        color: #fff;
+        margin: 2rem 0 1.2rem 0;
+        text-align: left;
+        letter-spacing: 0.01em;
+      }
+      .general-fields {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        margin-bottom: 0.6rem;
+      }
+      .general-fields label {
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: #fdf6e3;
+        margin-bottom: 0.3rem;
+        letter-spacing: 0.01em;
+      }
+      .general-fields input,
+      .general-fields select {
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        outline: none;
+        transition: border-color 0.2s;
+        font-family: 'Montserrat', Arial, sans-serif;
+        background: #000;
+        color: #fff;
+      }
+      .general-fields input:focus,
+      .general-fields select:focus {
+        border-color: #ff007f;
+      }
+      .general-fields select { background: #000; }
+      .section-note {
+        font-size: 0.92rem;
+        color: #fff;
+        margin-top: 0.5rem;
+      }
+      /* -------- IDENTITY VERIFICATION -------- */
+      .identity-section {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+      }
+      .upload-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        justify-content: space-between;
+        margin-bottom: 1.2rem;
+      }
+      @media (max-width: 700px) {
+        .upload-row { flex-direction: column; gap: 1.2rem;}
+        .upload-box { width: 100%; }
+      }
+      .upload-box {
+        flex: 1 1 250px;
+        background: #000;
+        border: 2px dashed #ccc;
+        border-radius: 8px;
+        padding: 1.5rem;
+        text-align: center;
+        cursor: pointer;
+        position: relative;
+        min-width: 220px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        margin-bottom: 0.5rem;
+      }
+      .upload-box:focus,.upload-box:hover { border-color: #fdf6e3; box-shadow: 0 0 12px #ff007f33; }
+      .upload-box .upload-icon {
+        font-size: 2.2rem;
+        color: #D3AF37;
+        margin-bottom: 0.3rem;
+        animation: camBlink 2s infinite;
+      }
+      @keyframes camBlink {
+        0%,100% { opacity: 1;}
+        60% { opacity: 0.5;}
+      }
+      .upload-box .upload-instruction {
+        font-size: 1rem;
+        color: #D3AF37;
+        font-weight: 500;
+      }
+      .upload-box .upload-file-info {
+        font-size: 0.91rem;
+        color: #666;
+        margin-top: 0.7rem;
+      }
+      .upload-preview-thumb {
+        width: 120px;
+        height: auto;
+        border-radius: 6px;
+        margin-top: 0.5rem;
+        box-shadow: 0 2px 8px #ccc;
+        border: 1px solid #eee;
+        object-fit: cover;
+        background: #000;
+      }
+      /* -------- OCR FIELDS -------- */
+      .ocr-alert {
+        display: none;
+        background: #fff4e5;
+        color: #cc6600;
+        border-radius: 8px;
+        padding: 1rem;
+        margin-bottom: 1.2rem;
+        font-size: 1rem;
+        font-weight: 500;
+        border: 1px solid #ffe1b3;
+        box-shadow: 0 2px 8px #ffe1b355;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        gap: 0.7em;
+      }
+      .ocr-alert .fa-triangle-exclamation {
+        font-size: 1.3em;
+        margin-right: 0.3em;
+      }
+      .ocr-info-pop {
+        display: none;
+        position: relative;
+        background: #fafafa;
+        color: #222;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.09);
+        padding: 1em 1.1em 1em 1.6em;
+        font-size: 1rem;
+        margin-bottom: 1rem;
+      }
+      .ocr-info-pop .ocr-pop-close {
+        position: absolute;
+        top: 8px;
+        right: 16px;
+        color: #ff007f;
+        font-size: 1.3em;
+        font-weight: bold;
+        background: none;
+        border: none;
+        cursor: pointer;
+        outline: none;
+      }
+      .ocr-fields-row {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        margin-bottom: 1rem;
+      }
+      .ocr-fields-row label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #fff;
+        margin-bottom: 0.3rem;
+      }
+      .ocr-fields-row input {
+        width: 100%;
+        padding: 0.75rem;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+        outline: none;
+        font-family: 'Montserrat', Arial, sans-serif;
+        background: #000;
+        color: #fff;
+        transition: border-color 0.2s;
+      }
+      .ocr-fields-row input:focus { border-color: #ff007f; }
+      /* -------- CHECKBOXES -------- */
+      .checkboxes-section {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .checkbox-row {
+        display: flex;
+        align-items: center;
+        gap: 0.7em;
+        font-size: 0.95rem;
+      }
+      .checkbox-row input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #ff007f;
+        border-radius: 4px;
+        margin-right: 0.6em;
+      }
+      .checkbox-row a {
+        color: #ff007f;
+        text-decoration: underline;
+        font-weight: 500;
+      }
+      /* -------- SUBMIT BUTTON -------- */
+      .submit-area {
+        margin-top: 3rem;
+        margin-bottom: 1rem;
+      }
+      .submit-btn {
+        width: 100%;
+        height: 3rem;
+        background: #ff007f;
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 2px 8px #ff007f33;
+        transition: background 0.2s, box-shadow 0.2s, opacity 0.2s;
+        text-transform: uppercase;
+      }
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        background: #999;
+        color: #fff;
+        box-shadow: none;
+      }
+      .submit-btn:not(:disabled):hover {
+        background: #ff43a1;
+        box-shadow: 0 4px 12px #ff007f55;
+      }
+      .loader {
+        border: 4px solid #fff;
+        border-top: 4px solid #ff007f;
+        border-radius: 50%;
+        width: 28px;
+        height: 28px;
+        animation: spinLoader 1s linear infinite;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 1em;
+      }
+      @keyframes spinLoader { 100% { transform: rotate(360deg); } }
+      .success-message {
+        font-size: 1rem;
+        color: #28a745;
+        text-align: center;
+        margin-top: 1rem;
+        font-weight: 600;
+      }
+      .review-message {
+        font-size: 1rem;
+        color: #D3AF37;
+        text-align: center;
+        margin-top: 1rem;
+        font-weight: 500;
+        opacity: 0.8;
+      }
+      @media (max-width:700px){
+        .section3-container { padding: 3vh 2vw; }
+        .page-title { font-size: 1.5rem;}
+        .upload-box { min-width: 180px;}
+      }
+      @media (max-width:500px){
+        .section3-container { padding: 1vh 1vw;}
+        .page-title { font-size: 1.2rem;}
+        .welcome-message,.ocr-fields-row label { font-size: 0.98rem;}
+      }
+    </style>
+
+    <div class="section3-container">
+      <!-- Header - DO NOT CHANGE -->
+      <div class="section3-header-group">
+        <i class="fa-solid fa-shield-halved section3-icon" aria-hidden="true"></i>
+        <div class="section3-title-wrapper">
+          <div class="section3-title-top" data-i18n="register_title_top">MILLENNIUM</div>
+          <div class="section3-title-bottom" data-i18n="register_title_bottom">Casino</div>
+        </div>
+      </div>
+
+      <!-- Page Title -->
+      <div class="page-title" data-i18n="user_registration_title">User Registration</div>
+
+      <!-- Welcome Message + Info Tip -->
+      <div class="welcome-row">
+        <div class="welcome-message">
+          Welcome to <span class="accent">Millennium Casino</span>! Please complete the steps below to register your account and verify your identity.
+        </div>
+        <div class="welcome-info-tip" tabindex="0">
+          <i class="fa-solid fa-circle-info"></i>
+          <span class="popover">Some fields will be auto-filled if OCR works correctly.</span>
+        </div>
+      </div>
+
+      <!-- General Info Section -->
+      <div class="section-label" data-i18n="update_general_info">Update Your General Information</div>
+      <form id="registrationForm" autocomplete="off">
+        <div class="general-fields">
+          <label for="fullName">Full Name *</label>
+          <input type="text" id="fullName" name="fullName" required placeholder="e.g. John Mwangi Odhiambo">
+
+          <label for="email">Email Address *</label>
+          <input type="email" id="email" name="email" required placeholder="e.g. john@email.com">
+
+          <label for="phone">Phone Number *</label>
+          <input type="tel" id="phone" name="phone" required placeholder="e.g. +254700000000">
+
+          <label for="gender">Gender *</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select...</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
+
+          <label for="country">Country of Residence *</label>
+          <select id="country" name="country" required>
+            <option value="">Select...</option>
+            <option value="Kenya">Kenya</option>
+            <option value="Uganda">Uganda</option>
+            <option value="Tanzania">Tanzania</option>
+            <option value="Rwanda">Rwanda</option>
+            <option value="Burundi">Burundi</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="section-note">Fields marked with * are required.</div>
+
+        <!-- Identity Verification Section -->
+        <div class="identity-section">
+          <div class="section-label" data-i18n="identity_verification">Identity Verification</div>
+          <div class="upload-row">
+            <div class="upload-box" id="uploadFront">
+              <div class="upload-icon"><i class="fa-solid fa-id-card"></i></div>
+              <div class="upload-instruction">Upload Front of ID/Passport</div>
+              <div class="upload-file-info">Accepted: JPG, PNG, PDF. Max size: 2MB</div>
+            </div>
+            <div class="upload-box" id="uploadBack">
+              <div class="upload-icon"><i class="fa-solid fa-id-card"></i></div>
+              <div class="upload-instruction">Upload Back of ID (if applicable)</div>
+              <div class="upload-file-info">Accepted: JPG, PNG, PDF. Max size: 2MB</div>
+            </div>
+            <div class="upload-box" id="uploadSelfie">
+              <div class="upload-icon"><i class="fa-solid fa-user"></i></div>
+              <div class="upload-instruction">Upload Selfie Holding ID</div>
+              <div class="upload-file-info">Accepted: JPG, PNG, PDF. Max size: 2MB</div>
+            </div>
+          </div>
+          <div id="uploadPreviews"></div>
+        </div>
+
+        <!-- OCR Alert (if fail) -->
+        <div class="ocr-alert" id="ocrAlert">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          OCR could not extract your ID details. Please enter them manually. Your photos are still saved securely.
+        </div>
+
+        <!-- OCR Info Pop (above fields) -->
+        <div class="ocr-info-pop" id="ocrInfoPop">
+          We tried auto-filling your details. Please confirm or correct them.
+          <button type="button" class="ocr-pop-close" id="closeOcrPop">&times;</button>
+        </div>
+
+        <!-- OCR/Manual Fields -->
+        <div class="ocr-fields-row" id="ocrFieldsRow">
+          <label for="ocrName">Name on ID *</label>
+          <input type="text" id="ocrName" name="ocrName" required>
+
+          <label for="ocrIdNum">ID Number *</label>
+          <input type="text" id="ocrIdNum" name="ocrIdNum" required>
+
+          <label for="ocrDob">Date of Birth *</label>
+          <input type="date" id="ocrDob" name="ocrDob" required>
+
+          <label for="ocrNation">Nationality *</label>
+          <input type="text" id="ocrNation" name="ocrNation" required>
+
+          <label for="ocrSerial">ID Serial Number *</label>
+          <input type="text" id="ocrSerial" name="ocrSerial" required>
+        </div>
+
+        <!-- Checkboxes Section -->
+        <div class="checkboxes-section">
+          <div class="checkbox-row">
+            <input type="checkbox" id="ocrConfirm" required>
+            <label for="ocrConfirm">I confirm that the auto-filled OCR data is accurate, or I have corrected it manually.</label>
+          </div>
+          <div class="checkbox-row">
+            <input type="checkbox" id="termsConfirm" required>
+            <label for="termsConfirm">
+              I agree to the
+              <a href="#" target="_blank">Terms & Conditions</a>
+              and
+              <a href="#" target="_blank">Privacy Policy</a>.
+            </label>
+          </div>
+        </div>
+
+        <!-- Final Submit Area -->
+        <div class="submit-area" id="submitArea">
+          <button type="submit" class="submit-btn" id="submitBtn" disabled>Submit Details</button>
+        </div>
+
+        <!-- Success & Review Messages -->
+        <div class="success-message" id="successMsg" style="display:none;">
+          <span class="loader"></span> Thank you! Your details have been submitted successfully for verification.
+        </div>
+        <div class="review-message" id="reviewMsg" style="display:none;">
+          Please wait while we review your documents. You will receive an email notification once verification is complete.
+        </div>
+      </form>
+    </div>
+    <script>
+      // --- Upload logic ---
+      let uploads = { front: null, back: null, selfie: null };
+      function handleUpload(field) {
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = ".jpg,.jpeg,.png,.pdf";
+        input.onchange = function() {
+          const file = input.files[0];
+          if (!file) return;
+          if (file.size > 2*1024*1024) {
+            alert("Max file size is 2MB.");
+            return;
+          }
+          const reader = new FileReader();
+          reader.onload = function(ev) {
+            uploads[field] = { name: file.name, data: ev.target.result };
+            showPreview(field, ev.target.result, file.name);
+            checkEnableSubmit();
+            // Simulate OCR after both ID sides and selfie uploaded
+            if (uploads.front && uploads.selfie) simulateOCR();
+          };
+          if (file.type.match(/pdf$/)) {
+            // just fake preview for PDF
+            reader.onload = function() {
+              uploads[field] = { name: file.name, data: null };
+              showPreview(field, null, file.name);
+              checkEnableSubmit();
+              if (uploads.front && uploads.selfie) simulateOCR();
+            };
+            reader.readAsArrayBuffer(file);
+          } else {
+            reader.readAsDataURL(file);
+          }
+        };
+        input.click();
+      }
+      function showPreview(field, dataUrl, fileName) {
+        const boxId = field === 'front' ? 'uploadFront' : field === 'back' ? 'uploadBack' : 'uploadSelfie';
+        const box = document.getElementById(boxId);
+        box.innerHTML = '';
+        let previewHTML = '';
+        if (dataUrl) {
+          previewHTML = `<img src="${dataUrl}" alt="${fileName}" class="upload-preview-thumb"><div style="font-size:0.91rem;margin-top:0.3em;color:#666;">${fileName}</div>`;
+        } else {
+          previewHTML = `<div style="font-size:1.6rem;margin-top:0.3em;color:#999;"><i class="fa-solid fa-file-pdf"></i></div><div style="font-size:0.91rem;margin-top:0.3em;color:#666;">${fileName}</div>`;
+        }
+        box.innerHTML = previewHTML;
+      }
+      document.getElementById('uploadFront').onclick = ()=>handleUpload('front');
+      document.getElementById('uploadBack').onclick = ()=>handleUpload('back');
+      document.getElementById('uploadSelfie').onclick = ()=>handleUpload('selfie');
+      // --- OCR Simulation ---
+      function simulateOCR() {
+        // Show pop-up and auto-fill (simulate success/fail)
+        let ocrSuccess = Math.random() > 0.25;
+        document.getElementById('ocrInfoPop').style.display = 'block';
+        if (!ocrSuccess) {
+          document.getElementById('ocrAlert').style.display = 'flex';
+          // Clear fields
+          ['ocrName','ocrIdNum','ocrDob','ocrNation','ocrSerial'].forEach(id=>document.getElementById(id).value="");
+        } else {
+          document.getElementById('ocrAlert').style.display = 'none';
+          document.getElementById('ocrName').value = "John Mwangi Odhiambo";
+          document.getElementById('ocrIdNum').value = "A1234567";
+          document.getElementById('ocrDob').value = "1992-06-18";
+          document.getElementById('ocrNation').value = "Kenyan";
+          document.getElementById('ocrSerial').value = "ID2025009";
+        }
+        checkEnableSubmit();
+      }
+      document.getElementById('closeOcrPop').onclick = function() {
+        document.getElementById('ocrInfoPop').style.display = 'none';
+      };
+      // --- Enable submit button ---
+      function checkEnableSubmit() {
+        const allGeneral = ['fullName','email','phone','gender','country'].every(id=>document.getElementById(id).value.trim().length > 0);
+        const allUploads = uploads.front && uploads.selfie; // back is optional
+        const allOcr = ['ocrName','ocrIdNum','ocrDob','ocrNation','ocrSerial'].every(id=>document.getElementById(id).value.trim().length > 0);
+        const checks = document.getElementById('ocrConfirm').checked && document.getElementById('termsConfirm').checked;
+        document.getElementById('submitBtn').disabled = !(allGeneral && allUploads && allOcr && checks);
+      }
+      document.getElementById('registrationForm').addEventListener('input', checkEnableSubmit);
+      document.querySelectorAll('.checkboxes-section input[type="checkbox"]').forEach(cb=>cb.onchange=checkEnableSubmit);
+      // --- Submit behavior ---
+      document.getElementById('registrationForm').onsubmit = function(e) {
+        e.preventDefault();
+        document.getElementById('submitBtn').style.display='none';
+        document.getElementById('successMsg').style.display='block';
+        setTimeout(()=>{
+          document.getElementById('successMsg').style.display='none';
+          document.getElementById('reviewMsg').style.display='block';
+        },2200);
+        // After another 2s, you could redirect, etc.
+      };
+    </script>
+  </section>
+</body>
+</html>
