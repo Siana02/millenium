@@ -47,17 +47,20 @@
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
   </head>
 <body>
-  <!-- SECTION 2: LOGIN (Paste inside <body> of index.html, after the header) -->
+ <!-- SECTION 2: LOGIN (Paste inside <body> after your header) -->
 <section id="section-login" aria-label="Login Section">
   <form id="login-form" autocomplete="off">
-    <h1 class="login-title" data-i18n="login_title">
-      <i class="fa-solid fa-shield-halved icon"></i>
-      Millennium Casino Login
-    </h1>
+    <div class="login-heading-group">
+      <i class="fa-solid fa-shield-halved login-icon" aria-hidden="true"></i>
+      <div>
+        <div class="login-title-top" data-i18n="login_title_top">MILLENNIUM</div>
+        <div class="login-title-bottom" data-i18n="login_title_bottom">Casino</div>
+      </div>
+    </div>
     <!-- Name Input -->
-    <label for="login-name" data-i18n="input_full_name_label">Enter Full Name</label>
+    <label for="login-name" class="login-label" data-i18n="input_full_name_label">Enter Full Name</label>
     <div class="input-group">
-      <i class="fa-solid fa-user icon"></i>
+      <i class="fa-solid fa-user input-icon" aria-hidden="true"></i>
       <input
         id="login-name"
         type="text"
@@ -65,13 +68,13 @@
         data-i18n="input_full_name_placeholder"
         aria-describedby="login-name-desc"
         required
-      />
+        />
       <span id="login-name-desc" class="sr-only">Full name required for registration.</span>
     </div>
     <!-- Role Dropdown -->
-    <label for="login-role" data-i18n="select_role_label">Select Role</label>
+    <label for="login-role" class="login-label" data-i18n="select_role_label">Select Role</label>
     <div class="input-group">
-      <i class="fa-solid fa-briefcase icon"></i>
+      <i class="fa-solid fa-briefcase input-icon" aria-hidden="true"></i>
       <select id="login-role" aria-label="Select Role" data-i18n="select_role_dropdown">
         <option value="User" data-i18n="role_user">User</option>
         <option value="Staff" data-i18n="role_staff">Staff</option>
@@ -80,72 +83,150 @@
     </div>
     <!-- Buttons -->
     <button type="submit" class="btn-login" aria-label="Login" data-i18n="button_login">
-      Login <i class="fa-solid fa-arrow-right icon"></i>
+      Login <i class="fa-solid fa-arrow-right btn-icon" aria-hidden="true"></i>
     </button>
     <button type="button" id="guest-btn" class="btn-guest" aria-label="Continue as Guest" data-i18n="button_guest">
-      <i class="fa-solid fa-user-secret icon"></i> Continue as Guest
+      <i class="fa-solid fa-user-secret btn-icon" aria-hidden="true"></i> Continue as Guest
     </button>
   </form>
 </section>
 
-<!-- SECTION LOGIN CSS (Place in <head> inside <style> or in your main CSS file) -->
+<!-- Fonts (Import as needed in <head>) -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Great+Vibes&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+<!-- Font Awesome 6 (If not already in <head>) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
 <style>
+/* --- Section Container --- */
 #section-login {
   min-height: 100vh;
   width: 100vw;
   display: flex; align-items: center; justify-content: center;
   background: linear-gradient(135deg, #121212 60%, #1a1a1a 100%);
-  font-family: 'Playfair Display', 'Inter', 'Poppins', serif, sans-serif;
-  animation: fadeIn 0.8s ease;
+  font-family: 'Inter', 'Poppins', 'Playfair Display', serif;
+  animation: fadeInSection 0.8s cubic-bezier(.68,-0.55,.27,1.55);
 }
-@keyframes fadeIn { from{opacity:0;}to{opacity:1;} }
+@keyframes fadeInSection { 0%{opacity:0;} 100%{opacity:1;} }
 
+/* --- Login Form Card --- */
 #login-form {
-  width: 90vw; max-width: 420px; background: rgba(18,18,18,0.6); border-radius: 2em;
-  padding: 2.5em 2em; box-shadow: 0 6px 32px #d4af3722;
-  display: flex; flex-direction: column; align-items: center; gap: 1.3em;
+  width: 90vw; max-width: 440px;
+  background: rgba(18,18,18,0.60);
+  border-radius: 2em;
+  box-shadow: 0 6px 32px #d4af3722;
+  padding: 2.5em 2em;
+  display: flex; flex-direction: column; gap: 1.6em; align-items: center;
   backdrop-filter: blur(7px);
-  animation: slideUp 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+  animation: slideUpForm 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+  position: relative;
 }
-@keyframes slideUp { from{transform:translateY(60px);opacity:0;}to{transform:translateY(0);opacity:1;} }
+@keyframes slideUpForm { 0%{transform:translateY(60px);opacity:0;} 100%{transform:translateY(0);opacity:1;} }
 
-.login-title {
-  font-size: 2em; color: #D4AF37; font-family: 'Playfair Display', serif;
-  text-align: center; margin-bottom: 0.6em; letter-spacing: 1.5px;
-  display: flex; align-items: center; justify-content: center;
-  gap: 0.5em;
+/* Responsive Widths + Padding */
+@media (max-width:480px) { #login-form { width:90vw; padding:2em 1em; } }
+@media (min-width:481px) and (max-width:1024px) { #login-form { width:60vw; padding:2.7em 2em; } }
+@media (min-width:1025px) { #login-form { width:40vw; padding:2.8em 2.2em; } }
+
+/* --- Heading --- */
+.login-heading-group {
+  display: flex; align-items: flex-end; gap: 0.7em; margin-bottom: 0.7em;
 }
+.login-icon {
+  color: #d4af37;
+  font-size: 2.3rem;
+  margin-right: 0.4em;
+  filter: drop-shadow(0 0 6px #d4af3788);
+}
+
+/* Top Line: Millennium */
+.login-title-top {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  background: linear-gradient(90deg, #d4af37 40%, #eccd79 75%, #d4af37 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: -0.35em;
+}
+@media (min-width:1025px) { .login-title-top { font-size: 2.4rem; } }
+
+/* Bottom Line: Casino (Great Vibes, glow/twinkle) */
+.login-title-bottom {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2rem;
+  color: #fff;
+  text-shadow: 0 0 8px #d4af37, 0 0 2px #fff;
+  margin-top: -0.8em;
+  margin-left: 0.3em;
+  position: relative;
+  animation: casinoTwinkle 3s ease-in-out infinite;
+}
+@keyframes casinoTwinkle {
+  0%,100% { text-shadow: 0 0 8px #d4af37, 0 0 2px #fff;}
+  60% { text-shadow: 0 0 18px #d4af37, 0 0 8px #fff;}
+}
+
+/* --- Labels --- */
+.login-label {
+  align-self: flex-start;
+  font-size: 1.05em;
+  font-weight: 500;
+  margin-bottom: 0.3em;
+  color: #F5F5F5;
+  letter-spacing: 0.03em;
+  font-family: 'Inter', sans-serif;
+}
+
+/* --- Input Group --- */
 .input-group {
-  position: relative; width: 100%; margin-bottom: 0.2em;
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.3em;
 }
-.input-group .icon {
+.input-icon {
   position: absolute; left: 0.9em; top: 50%; transform: translateY(-50%);
   color: #D4AF37; font-size: 1.2em;
+  z-index: 2;
 }
 .input-group input, .input-group select {
-  width: 100%; padding: 0.9em 1em 0.9em 2.5em; border-radius: 1em;
-  background: rgba(0,0,0,0.30); color: #F5F5F5;
-  border: 2px solid transparent; outline: none; font-size: 1em;
-  transition: border-color .23s, box-shadow .23s;
+  width: 100%; min-height: 48px;
+  padding: 0.9em 1em 0.9em 2.5em;
+  border-radius: 1em;
+  background: rgba(0,0,0,0.30);
+  color: #F5F5F5;
+  border: 2px solid transparent;
+  outline: none;
+  font-size: 1em;
+  font-family: 'Inter', 'Poppins', sans-serif;
+  transition: border-color .23s, box-shadow .23s, transform .18s;
   box-shadow: 0 2px 8px #C00E3B22;
 }
 .input-group input:focus, .input-group select:focus {
-  border-color: #D4AF37; box-shadow: 0 0 12px #D4AF3755;
+  border-color: #D4AF37; box-shadow: 0 0 12px #D4AF3755; transform: scale(1.02);
 }
+.input-group select:focus { animation: expandDrop 0.2s; }
+@keyframes expandDrop { from{transform:scaleY(0.95);}to{transform:scaleY(1.03);} }
 .input-group select {
   appearance: none; background: rgba(0,0,0,0.30);
 }
-.input-group select:focus {
-  animation: expandDrop 0.2s;
+.input-group select:active, .input-group select:focus {
+  outline: 2px solid #d4af37;
 }
-@keyframes expandDrop { from{transform:scaleY(0.9);}to{transform:scaleY(1);} }
+.input-group option { color: #121212; background: #fff;}
+
+/* --- Buttons --- */
 .btn-login, .btn-guest {
-  width: 100%; padding: 1em 0; font-size: 1.15em; font-weight: bold;
-  border-radius: 1.5em; border: none; cursor: pointer; margin-top: 0.3em;
+  width: 100%; min-height: 48px; padding: 1em 0;
+  font-size: 1.15em; font-weight: bold;
+  border-radius: 1.5em; border: none; cursor: pointer; margin-top: 0.5em;
   display: flex; align-items: center; justify-content: center; gap: 0.7em;
   box-shadow: 0 2px 12px #C00E3B22;
-  transition: box-shadow 0.2s, transform 0.13s;
+  transition: box-shadow 0.2s, transform 0.13s, background 0.17s;
 }
+@media (min-width:1025px) { .btn-login, .btn-guest { font-size: 1.2em; min-height: 56px; } }
 .btn-login {
   background: linear-gradient(90deg, #D4AF37 70%, #C00E3B 100%);
   color: #0A0A0A;
@@ -158,21 +239,21 @@
 }
 .btn-guest:hover { box-shadow: 0 0 14px #C00E3B; transform: translateY(-2px) scale(1.03); }
 .btn-guest:active { transform: scale(0.98); }
-.icon {
-  display: inline-block; vertical-align: middle; font-size: 1.2em;
+.btn-icon {
+  font-size: 1.2em;
+  margin-left: 0.3em;
 }
-.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); }
-@media (max-width: 480px) { #login-form { width:90vw; } }
-@media (min-width: 481px) and (max-width: 1024px) { #login-form { width:60vw; } }
-@media (min-width: 1025px) { #login-form { width:40vw; } }
+/* --- Accessibility --- */
+.sr-only { position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(1px,1px,1px,1px); }
+input:focus, select:focus, button:focus { outline: 2px solid #d4af37; outline-offset: 2px; }
+input, select, button { font-family: inherit; }
+input:-webkit-autofill { -webkit-box-shadow: 0 0 0 30px #121212 inset; -webkit-text-fill-color: #F5F5F5;}
 </style>
 
-<!-- Font Awesome 6 CDN (should already be in <head>, but add if missing) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
-
-<!-- SECTION LOGIN JS (Place before </body>) -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  // Fade-in handled by CSS, slide-up handled by CSS
+  // Name field accessibility
   const loginForm = document.getElementById('login-form');
   loginForm.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -180,7 +261,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const role = document.getElementById('login-role').value;
     localStorage.setItem('casinoUserName', name);
     localStorage.setItem('casinoUserRole', role);
-    // Animate fade out, then show dashboard (or next section)
+    // Fade out section-login, then fake dashboard
+    document.getElementById('section-login').style.transition = "opacity 0.5s";
     document.getElementById('section-login').style.opacity = 0;
     setTimeout(() => {
       document.getElementById('section-login').style.display = 'none';
@@ -190,16 +272,23 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('guest-btn').addEventListener('click', function() {
     localStorage.setItem('casinoUserName', 'Guest');
     localStorage.setItem('casinoUserRole', 'User');
+    document.getElementById('section-login').style.transition = "opacity 0.5s";
     document.getElementById('section-login').style.opacity = 0;
     setTimeout(() => {
       document.getElementById('section-login').style.display = 'none';
       showDashboard('Guest', 'User');
     }, 500);
   });
+  // Keyboard accessibility for select
+  document.getElementById('login-role').addEventListener('keydown', function(e){
+    if(e.key === 'ArrowDown' || e.key === 'ArrowUp'){ this.size = 3; }
+    if(e.key === 'Escape' || e.key === 'Tab'){ this.size = 1; }
+  });
 });
 
 function showDashboard(name, role) {
-  // Replace with real dashboard logic or next section
+  // Replace with real dashboard code
   alert("Welcome, " + name + " (" + role + ")! [Dashboard would appear here]");
 }
 </script>
+
