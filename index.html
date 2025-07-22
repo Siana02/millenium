@@ -51,12 +51,12 @@
 <section id="section-login" aria-label="Login Section">
   <form id="login-form" autocomplete="off">
     <div class="login-heading-group">
-      <i class="fa-solid fa-shield-halved login-icon" aria-hidden="true"></i>
-      <div>
-        <div class="login-title-top" data-i18n="login_title_top">MILLENNIUM</div>
-        <div class="login-title-bottom" data-i18n="login_title_bottom">Casino</div>
-      </div>
-    </div>
+  <i class="fa-solid fa-shield-halved login-icon" aria-hidden="true"></i>
+  <div class="login-title-wrapper">
+    <div class="login-title-top" data-i18n="login_title_top">MILLENNIUM</div>
+    <div class="login-title-bottom" data-i18n="login_title_bottom">Casino</div>
+  </div>
+</div>
     <!-- Name Input -->
     <label for="login-name" class="login-label" data-i18n="input_full_name_label">Enter Full Name</label>
     <div class="input-group">
@@ -130,7 +130,16 @@
 
 /* --- Heading --- */
 .login-heading-group {
-  display: flex; align-items: flex-end; gap: 0.7em; margin-bottom: 0.7em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+  margin-bottom: 0.7em;
+}
+  .login-title-wrapper {
+  text-align: center;
+  width: 100%;
 }
 .login-icon {
   color: #d4af37;
@@ -157,12 +166,12 @@
 .login-title-bottom {
   font-family: 'Great Vibes', cursive;
   font-size: 2rem;
-  color: #fff;
+  color: #fdf6e3;
   text-shadow: 0 0 8px #d4af37, 0 0 2px #fff;
-  margin-top: -0.8em;
-  margin-left: 0.3em;
+  margin-top: -0.7em;
   position: relative;
   animation: casinoTwinkle 3s ease-in-out infinite;
+  text-align: center;
 }
 @keyframes casinoTwinkle {
   0%,100% { text-shadow: 0 0 8px #d4af37, 0 0 2px #fff;}
