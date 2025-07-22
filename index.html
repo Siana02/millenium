@@ -300,490 +300,696 @@ function showDashboard(name, role) {
   alert("Welcome, " + name + " (" + role + ")! [Dashboard would appear here]");
 }
 </script>
-  <!-- SECTION 3: USER REGISTRATION -->
-<section id="registration-section">
-  <!-- A: Welcome Banner -->
-  <div class="reg-banner" role="heading" aria-level="1">
-    <span>Guest Registration — Millennium Casino</span>
+<!-- SECTION 3: GUEST REGISTRATION DASHBOARD -->
+<section id="guest-dashboard">
+
+  <!-- HEADER (Branding) -->
+  <div class="dashboard-header-bg">
+    <div class="dashboard-header">
+      <div class="dashboard-title-top">Millennium</div>
+      <div class="dashboard-title-bottom">Casino</div>
+    </div>
   </div>
-  <!-- B: Instruction/Info Box -->
-  <div class="reg-info-box">
-    Please fill out all required fields to register securely. Your information is protected by our privacy policies.
-  </div>
-  <!-- C: Registration Form -->
-  <form id="reg-form" autocomplete="off" novalidate>
-    <div class="form-flex">
 
-      <!-- Full Name -->
-      <div class="form-group full-width">
-        <label for="reg-name" class="reg-label">FULL NAME</label>
-        <input type="text" id="reg-name" name="name" class="reg-input" placeholder="e.g., John Mwangi Odhiambo" autocomplete="name" />
-        <span class="field-tip" id="tip-name">Please enter your official full name as per your ID.</span>
-        <span class="error-msg" id="error-name"></span>
-      </div>
+  <!-- Subheader -->
+  <div class="dashboard-subheader">GUEST REGISTRATION</div>
+  <hr class="dashboard-gold-divider" />
 
-      <!-- ID/Passport -->
-      <div class="form-group half-width">
-        <label for="reg-id" class="reg-label">ID NUMBER / PASSPORT NO.</label>
-        <input type="text" id="reg-id" name="id" class="reg-input" placeholder="12345678" />
-        <span class="field-tip" id="tip-id">Enter your official ID or passport number.</span>
-        <span class="error-msg" id="error-id"></span>
-      </div>
+  <!-- FORM CONTAINER -->
+  <form id="guest-reg-form" autocomplete="off" novalidate>
+    <div class="dashboard-form-grid">
 
-      <!-- Phone Number -->
-      <div class="form-group half-width">
-        <label for="reg-phone" class="reg-label">PHONE NUMBER</label>
-        <input type="tel" id="reg-phone" name="phone" class="reg-input" placeholder="+254700000000" maxlength="13" />
-        <span class="field-tip" id="tip-phone">Format: +254XXXXXXXXX</span>
-        <span class="error-msg" id="error-phone"></span>
-      </div>
-
-      <!-- Address -->
-      <div class="form-group full-width">
-        <label for="reg-address" class="reg-label">ADDRESS</label>
-        <textarea id="reg-address" name="address" class="reg-input reg-textarea" placeholder="Nairobi, Kenya"></textarea>
-        <span class="field-tip" id="tip-address">Enter your current residential address.</span>
-        <span class="error-msg" id="error-address"></span>
-      </div>
-
-      <!-- Date of Birth -->
-      <div class="form-group half-width">
-        <label for="reg-dob" class="reg-label">DATE OF BIRTH</label>
-        <input type="date" id="reg-dob" name="dob" class="reg-input reg-date" />
-        <span class="field-tip" id="tip-dob">Select your date of birth.</span>
-        <span class="error-msg" id="error-dob"></span>
-      </div>
-
-      <!-- Nationality -->
-      <div class="form-group half-width">
-        <label for="reg-nation" class="reg-label">NATIONALITY</label>
-        <select id="reg-nation" name="nation" class="reg-input reg-select">
-          <option value="">Select...</option>
-          <option value="Kenyan">Kenyan</option>
-          <option value="Ugandan">Ugandan</option>
-          <option value="Tanzanian">Tanzanian</option>
-          <option value="Rwandan">Rwandan</option>
-          <option value="Burundian">Burundian</option>
-          <option value="Other">Other</option>
-        </select>
-        <span class="field-tip" id="tip-nation">Choose your nationality.</span>
-        <span class="error-msg" id="error-nation"></span>
-      </div>
-
-      <!-- Gender -->
-      <div class="form-group full-width">
-        <span class="reg-label" id="gender-group-label">GENDER</span>
-        <div class="gender-radio-group" aria-labelledby="gender-group-label">
-          <label><input type="radio" name="gender" value="Male" /> Male</label>
-          <label><input type="radio" name="gender" value="Female" /> Female</label>
-          <label><input type="radio" name="gender" value="Other" /> Other</label>
+      <!-- ID Upload Section -->
+      <div class="id-upload-section">
+        <div class="id-upload-title">
+          <i class="fa-solid fa-id-card fa-fw"></i> Upload Your ID/Passport
         </div>
-        <span class="field-tip" id="tip-gender">Select your gender.</span>
-        <span class="error-msg" id="error-gender"></span>
+        <div class="id-upload-cards">
+          <!-- Front of ID -->
+          <div class="id-card-upload" id="front-id-upload">
+            <button type="button" class="id-upload-btn" id="btn-front-upload">
+              <span class="id-upload-icon"><i class="fa-solid fa-camera"></i></span>
+              <span class="id-upload-label">Take Photo: Front of ID</span>
+            </button>
+            <div class="id-upload-preview" id="front-id-preview"></div>
+          </div>
+          <!-- Back of ID -->
+          <div class="id-card-upload" id="back-id-upload">
+            <button type="button" class="id-upload-btn" id="btn-back-upload">
+              <span class="id-upload-icon"><i class="fa-solid fa-camera"></i></span>
+              <span class="id-upload-label">Take Photo: Back of ID</span>
+            </button>
+            <div class="id-upload-preview" id="back-id-preview"></div>
+          </div>
+        </div>
+        <div class="scan-hint" id="scan-hint"></div>
+        <div class="id-security-notes">
+          <span class="gold-italic">
+            <i class="fa-solid fa-lock"></i> We only store this data on your device using secure internal storage.<br>
+            <i class="fa-solid fa-shield-halved"></i> None of your data is shared or uploaded externally.
+          </span>
+        </div>
       </div>
 
-      <!-- Photo Upload -->
-      <div class="form-group full-width">
-        <label for="reg-photo" class="reg-label">PASSPORT PHOTO</label>
-        <input type="file" id="reg-photo" name="photo" accept=".jpg,.jpeg,.png" class="reg-input reg-file" />
-        <span class="field-tip" id="tip-photo">Upload a clear passport photo (.jpg, .png).</span>
-        <span class="error-msg" id="error-photo"></span>
-        <div id="photo-preview" class="photo-preview" aria-live="polite"></div>
+      <!-- Autofill Section (hidden until both images uploaded) -->
+      <div class="auto-fill-section" id="auto-fill-section" style="display:none;">
+        <div class="auto-fill-header">
+          <span>Auto-filled from your ID</span>
+          <i class="fa-solid fa-circle-info" title="Fields were extracted from your document using secure on-device OCR."></i>
+        </div>
+        <div class="auto-fill-fields">
+          <div class="auto-fill-row">
+            <label>Full Name</label>
+            <span id="auto-fullname"></span>
+            <span class="match-indicator" id="match-name"></span>
+          </div>
+          <div class="auto-fill-row">
+            <label>ID Number</label>
+            <span id="auto-idnumber"></span>
+            <span class="match-indicator" id="match-id"></span>
+          </div>
+          <div class="auto-fill-row">
+            <label>Date of Birth</label>
+            <span id="auto-dob"></span>
+            <span class="match-indicator" id="match-dob"></span>
+          </div>
+          <div class="auto-fill-row">
+            <label>Nationality</label>
+            <span id="auto-nation"></span>
+            <span class="match-indicator" id="match-nation"></span>
+          </div>
+          <div class="auto-fill-row">
+            <label>Gender</label>
+            <span id="auto-gender"></span>
+            <span class="match-indicator" id="match-gender"></span>
+          </div>
+        </div>
       </div>
 
-      <!-- Terms and Conditions -->
-      <div class="form-group full-width terms-row">
-        <input type="checkbox" id="reg-terms" />
-        <label for="reg-terms" class="terms-label">I agree to the terms & conditions</label>
-      </div>
-
-      <!-- D: Buttons -->
-      <div class="button-row">
-        <button type="button" class="btn guest-btn" id="continue-guest" aria-label="Continue as Guest">
-          <i class="fa-solid fa-user"></i> Continue as Guest
-        </button>
-        <button type="submit" class="btn submit-btn" id="reg-submit" aria-label="Submit & Save" disabled>
-          <i class="fa-solid fa-floppy-disk"></i> Submit & Save
-        </button>
-        <button type="reset" class="btn reset-btn" id="reg-reset" aria-label="Reset Form">
-          <i class="fa-solid fa-rotate"></i> Reset Form
-        </button>
+      <!-- Form Inputs (appear after scan or can be manually entered) -->
+      <div class="form-fields-section" id="form-fields-section" style="display:none;">
+        <div class="form-fields-row">
+          <div class="form-group">
+            <label for="field-name"><i class="fa-solid fa-user"></i> Full Name</label>
+            <input type="text" id="field-name" name="name" placeholder="e.g. John Mwangi Odhiambo" autocomplete="name" />
+            <span class="error-msg" id="error-name"></span>
+          </div>
+          <div class="form-group">
+            <label for="field-id"><i class="fa-solid fa-id-card"></i> ID Number</label>
+            <input type="text" id="field-id" name="id" placeholder="ID / Passport No." />
+            <span class="error-msg" id="error-id"></span>
+          </div>
+        </div>
+        <div class="form-fields-row">
+          <div class="form-group">
+            <label for="field-dob"><i class="fa-solid fa-calendar-days"></i> Date of Birth</label>
+            <input type="date" id="field-dob" name="dob" />
+            <span class="error-msg" id="error-dob"></span>
+          </div>
+          <div class="form-group">
+            <label for="field-nation"><i class="fa-solid fa-globe"></i> Nationality</label>
+            <select id="field-nation" name="nation">
+              <option value="">Select...</option>
+              <option value="Kenyan">Kenyan</option>
+              <option value="Ugandan">Ugandan</option>
+              <option value="Tanzanian">Tanzanian</option>
+              <option value="Rwandan">Rwandan</option>
+              <option value="Burundian">Burundian</option>
+              <option value="Other">Other</option>
+            </select>
+            <span class="error-msg" id="error-nation"></span>
+          </div>
+        </div>
+        <div class="form-fields-row">
+          <div class="form-group">
+            <label>Gender</label>
+            <div class="gender-radio-group">
+              <label><input type="radio" name="gender" value="Male" /> Male</label>
+              <label><input type="radio" name="gender" value="Female" /> Female</label>
+              <label><input type="radio" name="gender" value="Other" /> Other</label>
+            </div>
+            <span class="error-msg" id="error-gender"></span>
+          </div>
+        </div>
+        <div class="form-fields-row">
+          <button type="submit" class="reg-btn" id="reg-submit">
+            <i class="fa-solid fa-check"></i> Submit Registration
+          </button>
+        </div>
+        <div class="privacy-policy-link">
+          <a href="privacy.html" target="_blank">Privacy Policy</a>
+        </div>
       </div>
     </div>
   </form>
 </section>
 
-<!-- Privacy Modal -->
-<div id="privacy-modal" class="modal-overlay" style="display:none;">
-  <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
-    <h2 id="privacy-title"><i class="fa-solid fa-shield-halved"></i> Privacy & Security</h2>
-    <p>Your data is stored securely in compliance with privacy policies. Proceed?</p>
-    <div class="modal-buttons">
-      <button id="privacy-accept" class="btn submit-btn">Accept</button>
-      <button id="privacy-cancel" class="btn reset-btn">Cancel</button>
-    </div>
+<!-- IMAGE MODAL FOR PREVIEW -->
+<div id="img-modal" class="img-modal" style="display:none;">
+  <div class="img-modal-content">
+    <span class="img-modal-close">&times;</span>
+    <img id="img-modal-preview" src="" alt="Enlarged ID Preview" />
   </div>
 </div>
 
-<!-- Success Modal -->
-<div id="success-modal" class="modal-overlay" style="display:none;">
-  <div class="modal-content" role="alertdialog" aria-modal="true" aria-labelledby="success-title">
-    <h2 id="success-title" style="color:#F9F6EF;"><i class="fa-solid fa-circle-check"></i> Registration successful!</h2>
-    <div style="margin:16px 0;">
-      <button id="print-record" class="btn guest-btn" aria-label="Print Record">
-        <i class="fa-solid fa-print"></i> Print Record
-      </button>
-    </div>
+<!-- SUCCESS POPUP -->
+<div id="reg-success-popup" class="reg-success-popup" style="display:none;">
+  <div class="reg-success-inner">
+    <i class="fa-solid fa-circle-check"></i> Registration successful!
   </div>
 </div>
 
-<!-- Font & Icons IMPORTS (Add in <head> if not already) -->
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<!-- FONTS & ICONS -->
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400&family=Poppins:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
 
 <style>
-/* General */
-#registration-section {
-  width: 100vw; min-height: 100vh;
-  background: linear-gradient(135deg,#181818 0%,#141414 100%);
-  display: flex; flex-direction: column; align-items: center;
-  font-family: 'Inter', Arial, sans-serif;
-  padding-bottom: 24px;
-}
-
-/* Banner */
-.reg-banner {
-  width: 100%; height: 80px;
-  background: #141414;
-  color: #F9F6EF; font-weight: bold;
-  font-size: 24px; display: flex; align-items: center; justify-content: center;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 8px #d4af3722;
-}
-@media(max-width:480px){ .reg-banner{ font-size:18px;height:56px;} }
-
-.reg-info-box {
-  width: 90%; margin: 18px auto 12px auto;
-  background: #202020;
-  color: #AAAAAA; font-size: 14px;
-  padding: 16px; border-radius: 12px;
-  box-shadow: 0 2px 10px #2222;
+/* ---- HEADER ---- */
+.dashboard-header-bg {
+  width: 100vw;
+  background: #000;
+  background-image: linear-gradient(90deg, #1a1a1a 0%, #000 100%), repeating-linear-gradient(135deg, #E6C87A10 0px, #E6C87A10 2px, transparent 2px, transparent 24px);
+  padding-top: 2.2rem; padding-bottom: 1.2rem;
   text-align: center;
 }
-@media(max-width:480px){ .reg-info-box{ font-size:12px; padding:8px; } }
+.dashboard-header {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.dashboard-title-top {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  color: #fff;
+  font-weight: 400;
+  letter-spacing: 0.13em;
+  margin-bottom: -0.7em;
+  text-transform: small-caps;
+}
+.dashboard-title-bottom {
+  font-family: 'Great Vibes', cursive;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: #E6C87A;
+  font-weight: bold;
+  letter-spacing: 0.06em;
+  margin-top: -0.3em;
+  text-shadow: 0 0 24px #E6C87A88, 0 0 2px #fff;
+  animation: casinoTwinkle 3.2s infinite;
+}
+@keyframes casinoTwinkle {
+  0%,100% { text-shadow: 0 0 24px #E6C87A88, 0 0 2px #fff;}
+  60% { text-shadow: 0 0 36px #E6C87Acc, 0 0 8px #fff;}
+}
+.dashboard-subheader {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: clamp(1.2rem, 2vw, 2rem);
+  color: #E6C87A;
+  font-weight: bold;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  margin: 0 auto 0.6rem auto;
+  text-align: center;
+  padding-top: 24px;
+}
+.dashboard-gold-divider {
+  border: none;
+  border-top: 2px solid #E6C87A88;
+  width: 10vw; max-width: 140px; margin: 0 auto 2.2rem auto;
+  opacity: 0.8;
+}
 
-#reg-form {
-  margin: 0 auto; max-width: 600px;
-  background: #111; border-radius: 16px; box-shadow: 0 4px 32px #d4af3722;
-  padding: 20px;
-  display: flex; flex-direction: column; align-items: center; gap:0;
+/* ---- FORM CONTAINER ---- */
+#guest-reg-form {
+  background: #181818;
+  border-radius: 18px;
+  box-shadow: 0 6px 36px #E6C87A33;
+  border: 1.5px solid #E6C87A44;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 2rem 4vw;
+  display: flex; flex-direction: column; gap: 2rem;
+  font-family: 'Poppins', Arial, sans-serif;
+}
+.dashboard-form-grid { width:100%; }
+
+/* --- ID UPLOAD --- */
+.id-upload-section {
+  margin-bottom: 2rem;
+}
+.id-upload-title {
+  color: #E6C87A;
+  font-weight: bold;
+  font-size: clamp(1rem, 1.2vw, 1.3rem);
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.06em;
+  display: flex; align-items: center; gap: 0.5em;
+}
+.id-upload-cards {
+  display: flex; flex-direction: row; gap: 2vw; justify-content: center;
+}
+.id-card-upload {
+  background: #111;
+  border-radius: 14px;
+  box-shadow: 0 2px 10px #E6C87A22;
+  border: 1px solid #E6C87A55;
+  padding: 1rem 0.7rem;
+  min-width: 180px; max-width: 320px;
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  margin-bottom: 1.5rem;
   position: relative;
-  animation: fadeInRegForm 0.8s;
 }
-@keyframes fadeInRegForm { from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);} }
-
-.form-flex {
-  width: 100%; display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;
+.id-upload-btn {
+  background: #E6C87A;
+  color: #181818;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 0.8rem;
+  padding: 0.7em 1em;
+  border: none;
+  box-shadow: 0 2px 10px #E6C87A44;
+  display: flex; align-items: center; gap: 0.7em; justify-content: center;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+.id-upload-btn:hover {
+  box-shadow: 0 0 16px #E6C87A, 0 0 4px #fff;
+  transform: scale(1.04);
+}
+.id-upload-icon {
+  animation: camBlink 2s infinite;
+  color: #E6C87A;
+  font-size: 1.2em;
+}
+@keyframes camBlink {
+  0%,100% { opacity: 1;}
+  60% { opacity: 0.4;}
+}
+.id-upload-preview {
+  margin-top: 0.5rem; min-height: 54px;
+  display: flex; align-items: center; justify-content: center;
+}
+.id-upload-preview img {
+  max-width: 120px; max-height: 54px; border-radius: 10px;
+  border: 2px solid #E6C87A;
+  box-shadow: 0 0 12px #E6C87A55;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.id-upload-preview img:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 24px #E6C87A99;
+}
+.scan-hint {
+  color: #E6C87A; background: #222; border-radius: 0.7em;
+  font-size: 1rem; padding: 0.5em 1em; margin: 1em auto 0 auto;
+  text-align: center;
+  box-shadow: 0 2px 10px #E6C87A33;
+  display: none; position: relative;
+  animation: scanHintAnim 0.5s;
+}
+@keyframes scanHintAnim {
+  from{opacity:0;transform:translateY(-10px);}
+  to{opacity:1;transform:translateY(0);}
 }
 
-/* Form Groups */
-.form-group { position:relative; margin-bottom: 4px; }
-.full-width { width:100%; }
-.half-width { width:48%; min-width:220px; }
-@media(max-width:768px){ .half-width, .full-width{ width:100%; } }
-@media(max-width:480px){
-  #reg-form{padding:10px;}
-  .form-flex{gap:8px;}
-  .reg-label{font-size:10px;}
+/* --- SECURITY NOTE --- */
+.id-security-notes { margin: 0.7rem auto 0.7rem auto; text-align: center;}
+.gold-italic {
+  color: #E6C87A; font-style: italic; opacity: 0.85; font-size: 0.93em;
+  letter-spacing: 0.01em;
 }
 
-/* Labels */
-.reg-label {
-  display: block; font-size:12px; font-weight:600;
-  color: #F9F6EF; text-transform:uppercase; letter-spacing:1px;
-  margin-bottom:6px; font-family:'Inter',sans-serif;
+/* --- AUTO FILL SECTION --- */
+.auto-fill-section {
+  background: #E6C87A18;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px #E6C87A22;
+  padding: 1.2rem 1.2rem;
+  margin: 1.2rem auto;
+  max-width: 480px;
+  animation: autofillFadeIn 0.8s;
 }
+@keyframes autofillFadeIn { from{opacity:0;transform:translateY(30px);} to{opacity:1;transform:translateY(0);} }
+.auto-fill-header {
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1.1em; color: #E6C87A; font-weight: bold;
+  margin-bottom: 0.7rem;
+  display: flex; align-items: center; gap: 0.5em;
+}
+.auto-fill-fields { margin-top: 0.6rem;}
+.auto-fill-row {
+  display: flex; align-items: center; gap: 1em; justify-content: flex-start;
+  font-size: 1rem; margin-bottom: 0.5rem;
+}
+.auto-fill-row label { color: #fff; min-width: 102px; font-weight: 500;}
+.auto-fill-row span { font-weight: 500;}
+.match-indicator {
+  margin-left: 0.6em;
+  font-size: 1.3em;
+  vertical-align: middle;
+}
+.match-indicator.match { color: #1fc600; }
+.match-indicator.no-match { color: #c40000; }
 
-/* Inputs */
-.reg-input {
-  width: 100%; background: #1A1A1A;
-  color: #fff; font-size: 15px; font-family:'Inter',sans-serif;
-  border: 1px solid #444; border-radius: 8px;
-  padding: 11px 12px; margin-bottom: 0px;
-  transition: border-color .3s, box-shadow .3s;
+/* --- FORM FIELDS --- */
+.form-fields-section { margin-top: 2rem; }
+.form-fields-row {
+  display: flex; gap: 2vw; flex-wrap: wrap; justify-content: center;
+  margin-bottom: 1rem;
+}
+.form-group {
+  display: flex; flex-direction: column; min-width: 180px; max-width: 300px; width: 100%;
+  background: #111;
+  border-radius: 10px;
+  padding: 1em;
+  margin-bottom: 0.5em;
+  box-shadow: 0 2px 8px #E6C87A33;
+}
+.form-group label {
+  font-family: 'Poppins', Arial, sans-serif;
+  color: #E6C87A;
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  letter-spacing: 0.07em;
+  display: flex; align-items: center; gap: 0.4em;
+}
+.form-group input,
+.form-group select {
+  background: #181818;
+  color: #fff;
+  border: 1px solid #E6C87A80;
+  border-radius: 7px;
+  padding: 0.7em 1em;
+  font-size: 1em;
+  font-family: 'Poppins', Arial, sans-serif;
+  margin-bottom: 0.4em;
+  transition: border-color 0.3s, box-shadow 0.3s;
   outline: none;
 }
-.reg-input::placeholder { color: #888; }
-.reg-input:focus, .reg-input:active {
-  border-color: #FF007F;
-  box-shadow: 0 0 8px #FF007F88;
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #E6C87A;
+  box-shadow: 0 0 8px #E6C87A88;
 }
-.reg-textarea { resize: vertical; min-height: 48px; }
-.reg-date::-webkit-calendar-picker-indicator { filter: invert(1); }
-.reg-date { background: #222; color: #fff; }
-.reg-select { background: #222; color: #fff; }
-.reg-file { background: #222; color:#fff; padding:6px 0;}
-.reg-file::-webkit-file-upload-button{background:#FF007F;color:#fff;border-radius:6px;border:none;padding:6px 14px;}
-.reg-file:focus{border-color:#FF007F;box-shadow:0 0 8px #FF007F88;}
-/* Gender Radios */
 .gender-radio-group {
-  display: flex; gap: 28px; margin-bottom: 4px;
+  display: flex; gap: 1.4em; margin-top: 0.3em;
 }
-.gender-radio-group label { font-size: 15px; color: #F9F6EF; font-weight:500; }
-.gender-radio-group input[type="radio"] { accent-color: #FF007F; cursor:pointer; }
-
-/* Field Tips */
-.field-tip {
-  display: none;
-  position: absolute; left:2px; top: -30px; font-size:13px;
-  background: #1A1A1Aee; color: #FF007F;
-  border-radius:6px; padding:4px 10px;
-  box-shadow: 0 2px 8px #FF007F33;
-  font-weight:500; z-index: 2;
-  animation: fadeTip .3s;
+.gender-radio-group label {
+  font-size: 1em; color: #fff; font-weight: 500;
 }
-@keyframes fadeTip { from{opacity:0;transform:translateY(-8px);} to{opacity:1;transform:translateY(0);} }
-.form-group:focus-within .field-tip { display: block; }
-
+.gender-radio-group input[type="radio"] {
+  accent-color: #E6C87A; cursor:pointer;
+}
 .error-msg {
-  display: block; color: #FF007F;
-  font-size: 12px; margin-top: 2px; min-height: 14px;
-  font-weight: 600;
+  color: #c40000; font-size: 0.93em; min-height: 18px; font-weight: 600;
 }
 
-/* Buttons */
-.button-row {
-  display: flex; flex-direction: row; justify-content: space-between;
-  gap: 14px; width: 100%; margin-top: 20px;
+/* --- BUTTONS --- */
+.reg-btn {
+  background: #E6C87A;
+  color: #181818;
+  font-family: 'Poppins', Arial, sans-serif;
+  font-size: 1.02em;
+  font-weight: bold;
+  border-radius: 1.2em;
+  border: none;
+  padding: 0.8em 2em;
+  box-shadow: 0 2px 10px #E6C87A44;
+  cursor: pointer;
+  transition: box-shadow 0.3s, transform 0.3s;
+  max-width: 200px;
+  float: right;
 }
-.btn {
-  display: flex; align-items: center; gap: 8px; justify-content: center;
-  min-width: 120px; height:48px; font-size:16px; font-family:'Inter',sans-serif;
-  border-radius:12px; border:none; text-transform:uppercase; letter-spacing:1px;
-  font-weight:600; cursor:pointer; transition:all .3s;
-  box-shadow: 0 2px 8px #d4af3722;
+.reg-btn:hover {
+  box-shadow: 0 0 16px #fff, 0 0 8px #E6C87A;
+  transform: scale(1.06);
 }
-.guest-btn {
-  background: #000; color: #F9F6EF;
-}
-.guest-btn:hover, #print-record:hover { color:#FFD700; box-shadow:0 0 8px #FFD70099; transform:scale(1.05);}
-.submit-btn {
-  background: #FF007F; color:#fff;
-}
-.submit-btn:hover { background:#C40060; box-shadow:0 0 8px #C40060; transform:scale(1.05);}
-.reset-btn {
-  background: transparent; color: #F9F6EF; border:2px solid #F9F6EF;
-}
-.reset-btn:hover { background:#F9F6EF; color:#000; box-shadow:0 0 8px #d4af3788; transform:scale(1.05);}
-.btn:disabled { opacity:0.5; cursor:not-allowed; }
 
-/* Modals */
-.modal-overlay {
-  position:fixed;top:0;left:0;width:100vw;height:100vh;
-  background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center;z-index:40;
-  animation:fadeInModal .3s;
+/* --- PRIVACY POLICY LINK --- */
+.privacy-policy-link {
+  margin: 2.3em 0 0 0; width: 100%; text-align: right;
 }
-@keyframes fadeInModal{from{opacity:0;}to{opacity:1;}}
-.modal-content {
-  background:#141414;
-  color:#F9F6EF;
-  border-radius:18px;
-  padding:32px 26px;
-  box-shadow:0 8px 48px #d4af3788;
-  text-align:center;
-  min-width:280px;max-width:92vw;
-  animation:slideModal .4s;
+.privacy-policy-link a {
+  color: #E6C87A; font-size: 1em;
+  text-decoration: underline;
+  opacity: 0.8;
 }
-@keyframes slideModal{from{transform:translateY(-32px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-.modal-buttons { margin-top:18px; display:flex; gap:14px; justify-content:center; }
-#success-modal h2 i { color: #FFD700; margin-right:8px; font-size:1.5em; }
-.photo-preview { margin-top:8px; min-height:56px;}
-.photo-preview img { max-width:120px;max-height:56px;border-radius:8px;border:2px solid #FFD700;box-shadow:0 2px 8px #FFD70044;}
-@media(max-width:480px){
-  .btn{font-size:14px;height:40px;}
-  .modal-content{padding:20px 8px;}
-  .reg-label{font-size:10px;}
+
+/* --- MODALS --- */
+.img-modal {
+  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.7); z-index: 100; display: flex; align-items: center; justify-content: center;
+  animation: modalFadeIn 0.5s;
 }
+@keyframes modalFadeIn { from{opacity:0;}to{opacity:1;} }
+.img-modal-content {
+  background: #181818; border-radius: 12px; box-shadow: 0 0 32px #E6C87A77;
+  padding: 2rem; text-align: center; position: relative;
+}
+.img-modal-content img {
+  max-width: 90vw; max-height: 70vh; border-radius: 12px; border: 2px solid #E6C87A;
+}
+.img-modal-close {
+  position: absolute; top: 14px; right: 18px; font-size: 2rem; color: #E6C87A; cursor: pointer; font-weight: bold;
+  transition: color 0.2s;
+}
+.img-modal-close:hover { color: #FFD700; }
+
+.reg-success-popup {
+  position:fixed; top:50%; left:50%; transform:translate(-50%,-50%);
+  z-index:120; background:#181818ee; border-radius:16px; box-shadow:0 6px 28px #E6C87A99;
+  padding:2rem 3rem; text-align:center; animation:popupFadeIn 0.5s;
+}
+@keyframes popupFadeIn{from{opacity:0;transform:scale(0.5);}to{opacity:1;transform:scale(1);}}
+.reg-success-inner {
+  font-size: 1.5em; color: #E6C87A; font-family: 'Poppins', Arial, sans-serif;
+  letter-spacing: 0.06em; font-weight: bold;
+  display: flex; align-items: center; gap: 0.6em; justify-content: center;
+}
+.reg-success-inner i { color: #1fc600; }
+
+/* --- RESPONSIVE --- */
+@media (max-width:480px){
+  .dashboard-header-bg{padding-top:1.2rem;padding-bottom:0.5rem;}
+  #guest-reg-form{padding:1rem;}
+  .dashboard-gold-divider{margin-bottom:1rem;}
+  .id-upload-cards{flex-direction:column;gap:1rem;}
+  .form-fields-row{flex-direction:column;gap:1rem;}
+  .reg-btn{width:100%;max-width:none;float:none;}
+  .auto-fill-section{padding:0.7rem;}
+}
+@media (min-width:481px) and (max-width:768px){
+  #guest-reg-form{padding:2rem;}
+  .id-upload-cards{flex-direction:row;gap:2vw;}
+  .form-fields-row{flex-direction:row;}
+  .reg-btn{width:100%;max-width:none;}
+}
+@media (min-width:769px){
+  #guest-reg-form{padding:4rem 10%;}
+  .id-upload-cards{flex-direction:row;gap:2vw;}
+  .form-fields-row{flex-direction:row;}
+  .reg-btn{max-width:200px;}
+}
+@media (min-width:1441px){
+  #guest-reg-form{padding:6rem 20%;}
+  .dashboard-header-bg{padding-top:3.2rem;}
+  .id-upload-cards{gap:3vw;}
+  .form-group{max-width:360px;}
+}
+
+/* --- Accessibility --- */
+input:focus,select:focus,button:focus{outline:2px solid #E6C87A;outline-offset:2px;}
+input,select,button{font-family:inherit;}
 </style>
 
 <script>
-function capitalizeWords(str) {
-  return str.replace(/\b\w/g, c => c.toUpperCase());
+// --- IMAGE CAPTURE/UPLOAD ---
+let frontIdData = "", backIdData = "";
+function showScanHint(msg) {
+  const hint = document.getElementById('scan-hint');
+  hint.textContent = msg;
+  hint.style.display = 'block';
+  setTimeout(()=>{ hint.style.display = 'none'; }, 4000);
 }
 
-// Mask phone input
-function maskPhone(input) {
-  let v = input.value.replace(/[^\d+]/g, '');
-  if (!v.startsWith('+254')) v = '+254' + v.replace(/^\+?254?/, '');
-  v = v.substring(0,13);
-  input.value = v;
-}
+// Use file upload instead of camera for demo
+function handleUpload(side) {
+  showScanHint(`Upload a clear photo of the ${side} of your ID`);
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = "image/jpeg,image/png";
+  input.click();
 
-// Show field tips
-const fields = [
-  {id:"reg-name",tip:"tip-name"},
-  {id:"reg-id",tip:"tip-id"},
-  {id:"reg-phone",tip:"tip-phone"},
-  {id:"reg-address",tip:"tip-address"},
-  {id:"reg-dob",tip:"tip-dob"},
-  {id:"reg-nation",tip:"tip-nation"},
-  {id:"reg-photo",tip:"tip-photo"}
-];
-fields.forEach(f=>{
-  document.addEventListener('focusin',e=>{
-    if(e.target.id===f.id) document.getElementById(f.tip).style.display="block";
-  });
-  document.addEventListener('focusout',e=>{
-    if(e.target.id===f.id) document.getElementById(f.tip).style.display="none";
-  });
-});
-
-// Error/validation
-function showError(id,msg){
-  document.getElementById('error-'+id).textContent=msg;
-  document.getElementById('reg-'+id)?.classList?.add('error-outline');
-}
-function clearError(id){
-  document.getElementById('error-'+id).textContent="";
-  document.getElementById('reg-'+id)?.classList?.remove('error-outline');
-}
-
-// Enable submit only if terms checked
-document.getElementById('reg-terms').addEventListener('change',function(){
-  document.getElementById('reg-submit').disabled=!this.checked;
-});
-
-// Capitalize full name
-document.getElementById('reg-name').addEventListener('input',function(){
-  this.value=capitalizeWords(this.value);
-});
-
-// Mask phone
-document.getElementById('reg-phone').addEventListener('input',function(){
-  maskPhone(this);
-});
-
-// Photo preview and base64
-document.getElementById('reg-photo').addEventListener('change',function(e){
-  const file = e.target.files[0];
-  const preview = document.getElementById('photo-preview');
-  preview.innerHTML = "";
-  if(file){
-    if(!file.type.match('image/jpeg') && !file.type.match('image/png')){
-      showError('photo','Only .jpg or .png allowed');
-      return;
-    }
-    clearError('photo');
+  input.onchange = function() {
+    const file = input.files[0];
+    if (!file) return;
     const reader = new FileReader();
-    reader.onload = function(ev){
-      preview.innerHTML = `<img src="${ev.target.result}" alt="Passport Photo Preview"/>`;
-      preview.dataset.base64 = ev.target.result;
+    reader.onload = function(ev) {
+      if(side==="front") {
+        frontIdData = ev.target.result;
+        document.getElementById('front-id-preview').innerHTML =
+          `<img src="${frontIdData}" alt="Front of ID" title="Front of ID" />`;
+      } else {
+        backIdData = ev.target.result;
+        document.getElementById('back-id-preview').innerHTML =
+          `<img src="${backIdData}" alt="Back of ID" title="Back of ID" />`;
+      }
+      checkBothUploads();
     };
     reader.readAsDataURL(file);
-  }
-});
-
-// Gender selection: required
-// Validation
-function validateForm(){
-  let ok = true;
-  // Name
-  const name = document.getElementById('reg-name').value.trim();
-  if(!name){showError('name','This field is required');ok=false;} else clearError('name');
-  // ID
-  const idval = document.getElementById('reg-id').value.trim();
-  if(!idval){showError('id','This field is required');ok=false;}
-  else if(!idval.match(/^[A-Za-z0-9]{4,}$/)){showError('id','Invalid ID/Passport');ok=false;}
-  else clearError('id');
-  // Phone
-  const phone = document.getElementById('reg-phone').value.trim();
-  if(!phone || phone.length!=13 || !phone.match(/^\+254\d{9}$/)){showError('phone','Phone format: +254XXXXXXXXX');ok=false;} else clearError('phone');
-  // Address
-  const address = document.getElementById('reg-address').value.trim();
-  if(!address){showError('address','This field is required');ok=false;} else clearError('address');
-  // DOB
-  const dob = document.getElementById('reg-dob').value;
-  if(!dob){showError('dob','Required');ok=false;} else clearError('dob');
-  // Nationality
-  const nation = document.getElementById('reg-nation').value;
-  if(!nation){showError('nation','Required');ok=false;} else clearError('nation');
-  // Gender
-  const genderEls = document.querySelectorAll('input[name="gender"]');
-  let gender = "";
-  genderEls.forEach(r=>{if(r.checked)gender=r.value;});
-  if(!gender){showError('gender','Required');ok=false;} else clearError('gender');
-  // Photo
-  const photoData = document.getElementById('photo-preview').dataset.base64 || "";
-  if(!photoData){showError('photo','Photo required');ok=false;} else clearError('photo');
-  return {ok,name,idval,phone,address,dob,nation,gender,photoData};
+  };
 }
+// Click handlers for camera upload buttons
+document.getElementById('btn-front-upload').onclick = ()=>handleUpload("front");
+document.getElementById('btn-back-upload').onclick = ()=>handleUpload("back");
 
-// Form submit
-document.getElementById('reg-form').addEventListener('submit',function(e){
-  e.preventDefault();
-  const valid = validateForm();
-  if(!valid.ok) return;
-
-  // Show privacy modal before saving
-  document.getElementById('privacy-modal').style.display="flex";
-  let proceed = false;
-  document.getElementById('privacy-accept').onclick = function(){
-    document.getElementById('privacy-modal').style.display="none";
-    proceed = true;
-    // Save to localStorage (simulate)
-    localStorage.setItem('regData', JSON.stringify({
-      name: valid.name,
-      id: valid.idval,
-      phone: valid.phone,
-      address: valid.address,
-      dob: valid.dob,
-      nation: valid.nation,
-      gender: valid.gender,
-      photo: valid.photoData
-    }));
-    // Show success modal
-    document.getElementById('success-modal').style.display="flex";
-  };
-  document.getElementById('privacy-cancel').onclick = function(){
-    document.getElementById('privacy-modal').style.display="none";
-  };
-});
-
-// Print record
-document.getElementById('print-record').addEventListener('click',function(){
-  const regData = localStorage.getItem('regData');
-  if(regData){
-    const d = JSON.parse(regData);
-    let w = window.open('', '', 'width=600,height=700');
-    w.document.write('<html><head><title>Registration Record</title></head><body style="font-family:Inter,Arial,sans-serif;background:#f9f6ef;color:#141414;padding:24px;">');
-    w.document.write('<h2>Millennium Casino — Registration Record</h2>');
-    w.document.write('<ul style="font-size:16px;">');
-    Object.entries(d).forEach(([k,v])=>{
-      if(k!=="photo")w.document.write(`<li><strong>${k[0].toUpperCase()+k.slice(1)}:</strong> ${v}</li>`);
+// Preview modal
+function setupImgModal() {
+  ['front-id-preview','back-id-preview'].forEach(id=>{
+    document.getElementById(id).addEventListener('click',function(e){
+      if(e.target.tagName==='IMG'){
+        document.getElementById('img-modal-preview').src = e.target.src;
+        document.getElementById('img-modal').style.display = 'flex';
+      }
     });
-    if(d.photo)w.document.write(`<li><strong>Photo:</strong><br><img src="${d.photo}" style="max-width:120px;border-radius:10px;border:2px solid #FFD700;"/></li>`);
-    w.document.write('</ul></body></html>');
-    w.print();
+  });
+  document.querySelector('.img-modal-close').onclick = function(){
+    document.getElementById('img-modal').style.display = 'none';
+  };
+}
+setupImgModal();
+
+// --- AUTO-FILL MOCK (simulate OCR extraction) ---
+function checkBothUploads() {
+  if(frontIdData && backIdData) {
+    // Show autofill section with mock data
+    document.getElementById('auto-fill-section').style.display = "block";
+    document.getElementById('form-fields-section').style.display = "block";
+    // Simulated extracted info
+    let extracted = {
+      name: "John Mwangi Odhiambo",
+      id: "A1234567",
+      dob: "1992-06-18",
+      nation: "Kenyan",
+      gender: "Male"
+    };
+    // Fill extracted
+    document.getElementById('auto-fullname').textContent = extracted.name;
+    document.getElementById('auto-idnumber').textContent = extracted.id;
+    document.getElementById('auto-dob').textContent = extracted.dob;
+    document.getElementById('auto-nation').textContent = extracted.nation;
+    document.getElementById('auto-gender').textContent = extracted.gender;
+    // Match check (compare to fields, update indicators)
+    updateMatchIndicators(extracted);
   }
+}
+function updateMatchIndicators(extracted) {
+  // Compare values
+  let name = document.getElementById('field-name').value.trim();
+  let idnum = document.getElementById('field-id').value.trim();
+  let dob = document.getElementById('field-dob').value.trim();
+  let nation = document.getElementById('field-nation').value.trim();
+  let gender = "";
+  document.querySelectorAll('input[name="gender"]').forEach(el=>{if(el.checked)gender=el.value});
+  // For demo, if empty, use extracted
+  if(!name) { document.getElementById('field-name').value = extracted.name; name = extracted.name; }
+  if(!idnum) { document.getElementById('field-id').value = extracted.id; idnum = extracted.id; }
+  if(!dob) { document.getElementById('field-dob').value = extracted.dob; dob = extracted.dob; }
+  if(!nation) { document.getElementById('field-nation').value = extracted.nation; nation = extracted.nation; }
+  if(!gender) {
+    document.querySelectorAll('input[name="gender"]').forEach(el=>{
+      if(el.value===extracted.gender) el.checked=true;
+    });
+    gender = extracted.gender;
+  }
+  // Matching indicators
+  setMatch('name', name === extracted.name);
+  setMatch('id', idnum === extracted.id);
+  setMatch('dob', dob === extracted.dob);
+  setMatch('nation', nation === extracted.nation);
+  setMatch('gender', gender === extracted.gender);
+}
+function setMatch(field, isMatch) {
+  const el = document.getElementById('match-'+field);
+  if(isMatch) {
+    el.textContent = '✅';
+    el.className = 'match-indicator match';
+  } else {
+    el.textContent = '⚠️';
+    el.className = 'match-indicator no-match';
+  }
+}
+// Update indicators live
+['field-name','field-id','field-dob','field-nation'].forEach(id=>{
+  document.getElementById(id).addEventListener('input',function(){
+    let extracted = {
+      name: document.getElementById('auto-fullname').textContent,
+      id: document.getElementById('auto-idnumber').textContent,
+      dob: document.getElementById('auto-dob').textContent,
+      nation: document.getElementById('auto-nation').textContent,
+      gender: document.getElementById('auto-gender').textContent
+    };
+    updateMatchIndicators(extracted);
+  });
+});
+document.querySelectorAll('input[name="gender"]').forEach(el=>{
+  el.addEventListener('change',function(){
+    let extracted = {
+      name: document.getElementById('auto-fullname').textContent,
+      id: document.getElementById('auto-idnumber').textContent,
+      dob: document.getElementById('auto-dob').textContent,
+      nation: document.getElementById('auto-nation').textContent,
+      gender: document.getElementById('auto-gender').textContent
+    };
+    updateMatchIndicators(extracted);
+  });
 });
 
-// Reset
-document.getElementById('reg-reset').addEventListener('click',function(){
-  document.getElementById('photo-preview').innerHTML="";
-  document.getElementById('photo-preview').dataset.base64="";
-  fields.forEach(f=>clearError(f.id.replace('reg-','')));
-});
-
-// Continue as Guest
-document.getElementById('continue-guest').addEventListener('click',function(){
-  alert("Continuing as guest...");
-  // You can redirect or hide registration here if needed
+// --- FORM SUBMIT --- //
+function showError(id, msg) {
+  document.getElementById('error-'+id).textContent = msg;
+}
+function clearError(id) {
+  document.getElementById('error-'+id).textContent = '';
+}
+document.getElementById('guest-reg-form').addEventListener('submit',function(e){
+  e.preventDefault();
+  // Validate all fields (simple)
+  let ok = true;
+  let name = document.getElementById('field-name').value.trim();
+  let idnum = document.getElementById('field-id').value.trim();
+  let dob = document.getElementById('field-dob').value.trim();
+  let nation = document.getElementById('field-nation').value.trim();
+  let gender = "";
+  document.querySelectorAll('input[name="gender"]').forEach(el=>{if(el.checked)gender=el.value});
+  if(!name) { showError('name','Required'); ok=false; } else clearError('name');
+  if(!idnum) { showError('id','Required'); ok=false; } else clearError('id');
+  if(!dob) { showError('dob','Required'); ok=false; } else clearError('dob');
+  if(!nation) { showError('nation','Required'); ok=false; } else clearError('nation');
+  if(!gender) { showError('gender','Required'); ok=false; } else clearError('gender');
+  if(!frontIdData || !backIdData) {
+    showScanHint("Please upload BOTH sides of your ID before submitting.");
+    ok = false;
+  }
+  if(!ok) return;
+  // Simulate saving to localStorage
+  localStorage.setItem('guestReg', JSON.stringify({
+    name, idnum, dob, nation, gender, frontIdData, backIdData
+  }));
+  // Show success popup
+  document.getElementById('reg-success-popup').style.display = 'block';
+  setTimeout(()=>{ document.getElementById('reg-success-popup').style.display = 'none'; }, 4000);
+  // Optionally clear form
+  // this.reset();
 });
 
 // Accessibility: keyboard tab focus
-document.querySelectorAll('input,select,textarea,button').forEach(el=>{
+document.querySelectorAll('input,select,button').forEach(el=>{
   el.addEventListener('focus',function(){this.classList.add('focused');});
   el.addEventListener('blur',function(){this.classList.remove('focused');});
 });
 </script>
 
+  
+ 
