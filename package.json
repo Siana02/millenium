@@ -1,0 +1,25 @@
+{
+  "name": "millenium",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Siana02/millenium.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Siana02/millenium/issues"
+  },
+  "homepage": "https://github.com/Siana02/millenium#readme",
+  "dependencies": {
+    "framer-motion": "^12.23.6",
+    "react-router-dom": "^7.7.0"
+  }
+}
