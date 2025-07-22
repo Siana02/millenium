@@ -1134,48 +1134,51 @@ function showDashboard(name, role) {
       padding-bottom: 8px;
     }
     .dashboard-card {
-      min-width: 260px;
-      max-width: 260px;
-      height: 120px;
-      background: #1a1a1a;
-      border-radius: 16px;
-      box-shadow: 0 2px 12px rgba(255,255,255,0.1);
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-      align-items: start;
-      padding: 20px 18px;
-      position: relative;
-      gap: 0.6em;
-      scroll-snap-align: start;
-      transition: box-shadow 0.2s;
-    }
-    .dashboard-card:hover {
-      box-shadow: 0 4px 24px #d4af37cc;
-    }
-    .dashboard-card-icon {
-      font-size: 32px;
-      color: #d4af37;
-      position: absolute;
-      left: 18px;
-      top: 15px;
-    }
-    .dashboard-card-title {
-      font-size: 14px;
-      text-transform: uppercase;
-      color: #d4af37;
-      font-weight: 600;
-      margin-top: 0.2em;
-      letter-spacing: 0.05em;
-    }
-    .dashboard-card-value {
-      font-size: 32px;
-      color: #fff;
-      font-weight: 700;
-      margin-top: 1.1em;
-      margin-left: 42px;
-      line-height: 1;
-    }
+  min-width: 260px;
+  max-width: 260px;
+  height: 120px;
+  background: #1a1a1a;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: box-shadow 0.2s;
+}
+
+.dashboard-card-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 20px 18px;
+}
+
+.dashboard-card-icon {
+  font-size: 32px;
+  color: #d4af37;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.dashboard-card-title {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #d4af37;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 8px;
+  margin-top: 3px;
+}
+
+.dashboard-card-value {
+  font-size: 32px;
+  color: #fff;
+  font-weight: 700;
+  display: block;
+}
     @media (max-width:768px) {
       .dashboard-cards-row {
         flex-direction: row;
@@ -1187,37 +1190,65 @@ function showDashboard(name, role) {
       .dashboard-card-value { font-size: 28px; margin-top: 0.8em; margin-left: 38px;}
     }
     /* --- SEARCH & FILTER PANEL --- */
-    .search-filter-panel {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 1.5em;
-      flex-wrap: wrap;
-    }
-    .search-input, .filter-dropdown, .date-range-input {
-      font-size: 14px;
-      padding: 12px 20px;
-      border: 1px solid #d4af37;
-      border-radius: 8px;
-      background: #111;
-      color: #fff;
-      box-shadow: 0 1px 4px #fff1;
-      margin-bottom: 8px;
-      width: 220px;
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .search-input:focus, .filter-dropdown:focus, .date-range-input:focus {
-      border-color: #fff;
-      box-shadow: 0 0 8px #d4af37;
-    }
-    @media (max-width:768px) {
-      .search-filter-panel {
-        flex-direction: column;
-        gap: 10px;
-      }
-      .search-input, .filter-dropdown, .date-range-input { width:100%; }
-    }
+   .search-filter-panel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 1.5em;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+@media (max-width: 768px) {
+  .search-filter-panel {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+}
+
+.search-input,
+.filter-dropdown,
+.date-range-input {
+  font-size: 14px;
+  padding: 12px 20px;
+  border: 1px solid #d4af37;
+  border-radius: 8px;
+  background: #111;
+  color: #fff;
+  box-shadow: 0 1px 4px #fff1;
+  margin-bottom: 8px;
+  width: 220px;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+@media (max-width: 768px) {
+  .search-input,
+  .filter-dropdown,
+  .date-range-input {
+    width: 100%;
+    min-width: 0;
+  }
+}
+  .input-icon-wrapper {
+  position: relative;
+  width: 220px;
+}
+.input-icon-wrapper .search-input {
+  padding-left: 40px;
+}
+.input-icon-wrapper .search-input-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #d4af37;
+  font-size: 1em;
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  .input-icon-wrapper { width: 100%; }
+}
     /* --- TABLE --- */
     .dashboard-table-container {
       width: 100%;
@@ -1371,30 +1402,34 @@ function showDashboard(name, role) {
       justify-content: flex-end;
     }
     /* --- AUDIT LOG BUTTON --- */
-    .audit-log-btn {
-      position: fixed;
-      right: 36px;
-      bottom: 36px;
-      z-index: 80;
-      padding: 12px 24px;
-      border: 2px solid #d4af37;
-      background: transparent;
-      color: #d4af37;
-      font-size: 14px;
-      font-weight: 600;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-      box-shadow: 0 2px 8px #d4af37aa;
-      display: flex;
-      align-items: center;
-      gap: 0.7em;
-    }
-    .audit-log-btn:hover, .audit-log-btn:focus {
-      background: #d4af37;
-      color: #000;
-      outline: 2px solid #fff;
-    }
+  .audit-log-bottom-bar {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 32px 0 16px 0;
+  position: static;
+}
+.audit-log-btn {
+  padding: 12px 24px;
+  border: 2px solid #d4af37;
+  background: transparent;
+  color: #d4af37;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px #d4af37aa;
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+}
+.audit-log-btn:hover,
+.audit-log-btn:focus {
+  background: #d4af37;
+  color: #000;
+  outline: 2px solid #fff;
+}
     /* --- SNACKBAR/TOAST --- */
     .snackbar {
       position: fixed;
@@ -1495,29 +1530,44 @@ function showDashboard(name, role) {
   <div class="admin-welcome-date" id="adminWelcomeDate"></div>
 
   <!-- DASHBOARD CARDS -->
-  <div class="dashboard-cards-row" id="dashboardCards">
-    <div class="dashboard-card">
+ <div class="dashboard-cards-row" id="dashboardCards">
+  <div class="dashboard-card">
+    <div class="dashboard-card-layout">
       <span class="dashboard-card-icon"><i class="fa-solid fa-users"></i></span>
-      <span class="dashboard-card-title">Registered Users</span>
-      <span class="dashboard-card-value" id="cardUsers">512</span>
-    </div>
-    <div class="dashboard-card">
-      <span class="dashboard-card-icon"><i class="fa-solid fa-id-card"></i></span>
-      <span class="dashboard-card-title">Pending Verifications</span>
-      <span class="dashboard-card-value" id="cardPending">17</span>
-    </div>
-    <div class="dashboard-card">
-      <span class="dashboard-card-icon"><i class="fa-solid fa-check-circle"></i></span>
-      <span class="dashboard-card-title">Approved IDs</span>
-      <span class="dashboard-card-value" id="cardApproved">412</span>
-    </div>
-    <div class="dashboard-card">
-      <span class="dashboard-card-icon"><i class="fa-solid fa-ban"></i></span>
-      <span class="dashboard-card-title">Rejected IDs</span>
-      <span class="dashboard-card-value" id="cardRejected">8</span>
+      <div>
+        <span class="dashboard-card-title">Registered Users</span>
+        <span class="dashboard-card-value" id="cardUsers">512</span>
+      </div>
     </div>
   </div>
-
+  <div class="dashboard-card">
+    <div class="dashboard-card-layout">
+      <span class="dashboard-card-icon"><i class="fa-solid fa-id-card"></i></span>
+      <div>
+        <span class="dashboard-card-title">Pending Verifications</span>
+        <span class="dashboard-card-value" id="cardPending">17</span>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-card">
+    <div class="dashboard-card-layout">
+      <span class="dashboard-card-icon"><i class="fa-solid fa-check-circle"></i></span>
+      <div>
+        <span class="dashboard-card-title">Approved IDs</span>
+        <span class="dashboard-card-value" id="cardApproved">412</span>
+      </div>
+    </div>
+  </div>
+  <div class="dashboard-card">
+    <div class="dashboard-card-layout">
+      <span class="dashboard-card-icon"><i class="fa-solid fa-ban"></i></span>
+      <div>
+        <span class="dashboard-card-title">Rejected IDs</span>
+        <span class="dashboard-card-value" id="cardRejected">8</span>
+      </div>
+    </div>
+  </div>
+</div>
   <!-- SEARCH & FILTER PANEL -->
   <div class="search-filter-panel">
     <input class="search-input" type="search" placeholder="Search by name or email" id="searchInput" />
@@ -1627,8 +1677,11 @@ function showDashboard(name, role) {
   </div>
 
   <!-- AUDIT LOG BUTTON -->
-  <button class="audit-log-btn" id="auditLogBtn"><i class="fa-solid fa-search"></i> View Audit Log</button>
-
+  <div class="audit-log-bottom-bar">
+    <button class="audit-log-btn" id="auditLogBtn">
+      <i class="fa-solid fa-search"></i> View Audit Log
+    </button>
+  </div>
   <!-- MODAL FOR "VIEW FULL" -->
   <div class="modal-bg" id="modalBg" style="display:none;">
     <div class="modal-panel">
@@ -1655,8 +1708,6 @@ function showDashboard(name, role) {
     </div>
   </div>
 
-  <!-- SNACKBAR/TOAST -->
-  <div class="snackbar" id="snackbar"></div>
 
   <script>
     // Set dynamic admin name and date
