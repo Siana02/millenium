@@ -34,13 +34,7 @@
 
   <!-- 6. STYLESHEETS -->
   <link rel="stylesheet" href="/src/style.css">
-  <!-- Tailwind is built via Vite; if CDN fallback needed: -->
-  <!-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.3/dist/tailwind.min.css" rel="stylesheet"> -->
-
-  <!-- 7. UI/UX LIBRARIES -->
-  <!-- Framer Motion is used via React import; no <script> needed. Example for other libraries: -->
-  <!-- <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script> -->
-
+  
   <!-- 8. SEO + SOCIAL MEDIA PREVIEW TAGS -->
   <meta property="og:title" content="Millennium Casino Portal">
   <meta property="og:description" content="Sleek, secure registration platform for Millennium Casino, Nyali. Built for investors & clients.">
@@ -51,10 +45,161 @@
   <!-- 9. PERFORMANCE + SECURITY -->
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://fonts.gstatic.com">
-  <!-- Preload key assets -->
-  <!-- <link rel="preload" href="/assets/images/og-preview.jpg" as="image"> -->
-  <!-- Referrer Policy Example -->
-  <!-- <a href="https://external.site" referrerpolicy="no-referrer"></a> -->
-</head>
+  </head>
 <body>
-  <div id="root"></div>
+  <!-- SECTION 2: LOGIN (Paste inside <body> of index.html, after the header) -->
+<section id="section-login" aria-label="Login Section">
+  <form id="login-form" autocomplete="off">
+    <h1 class="login-title" data-i18n="login_title">
+      <i class="fa-solid fa-shield-halved icon"></i>
+      Millennium Casino Login
+    </h1>
+    <!-- Name Input -->
+    <label for="login-name" data-i18n="input_full_name_label">Enter Full Name</label>
+    <div class="input-group">
+      <i class="fa-solid fa-user icon"></i>
+      <input
+        id="login-name"
+        type="text"
+        placeholder="Enter Full Name"
+        data-i18n="input_full_name_placeholder"
+        aria-describedby="login-name-desc"
+        required
+      />
+      <span id="login-name-desc" class="sr-only">Full name required for registration.</span>
+    </div>
+    <!-- Role Dropdown -->
+    <label for="login-role" data-i18n="select_role_label">Select Role</label>
+    <div class="input-group">
+      <i class="fa-solid fa-briefcase icon"></i>
+      <select id="login-role" aria-label="Select Role" data-i18n="select_role_dropdown">
+        <option value="User" data-i18n="role_user">User</option>
+        <option value="Staff" data-i18n="role_staff">Staff</option>
+        <option value="Admin" data-i18n="role_admin">Admin</option>
+      </select>
+    </div>
+    <!-- Buttons -->
+    <button type="submit" class="btn-login" aria-label="Login" data-i18n="button_login">
+      Login <i class="fa-solid fa-arrow-right icon"></i>
+    </button>
+    <button type="button" id="guest-btn" class="btn-guest" aria-label="Continue as Guest" data-i18n="button_guest">
+      <i class="fa-solid fa-user-secret icon"></i> Continue as Guest
+    </button>
+  </form>
+</section>
+
+<!-- SECTION LOGIN CSS (Place in <head> inside <style> or in your main CSS file) -->
+<style>
+#section-login {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #121212 60%, #1a1a1a 100%);
+  font-family: 'Playfair Display', 'Inter', 'Poppins', serif, sans-serif;
+  animation: fadeIn 0.8s ease;
+}
+@keyframes fadeIn { from{opacity:0;}to{opacity:1;} }
+
+#login-form {
+  width: 90vw; max-width: 420px; background: rgba(18,18,18,0.6); border-radius: 2em;
+  padding: 2.5em 2em; box-shadow: 0 6px 32px #d4af3722;
+  display: flex; flex-direction: column; align-items: center; gap: 1.3em;
+  backdrop-filter: blur(7px);
+  animation: slideUp 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+}
+@keyframes slideUp { from{transform:translateY(60px);opacity:0;}to{transform:translateY(0);opacity:1;} }
+
+.login-title {
+  font-size: 2em; color: #D4AF37; font-family: 'Playfair Display', serif;
+  text-align: center; margin-bottom: 0.6em; letter-spacing: 1.5px;
+  display: flex; align-items: center; justify-content: center;
+  gap: 0.5em;
+}
+.input-group {
+  position: relative; width: 100%; margin-bottom: 0.2em;
+}
+.input-group .icon {
+  position: absolute; left: 0.9em; top: 50%; transform: translateY(-50%);
+  color: #D4AF37; font-size: 1.2em;
+}
+.input-group input, .input-group select {
+  width: 100%; padding: 0.9em 1em 0.9em 2.5em; border-radius: 1em;
+  background: rgba(0,0,0,0.30); color: #F5F5F5;
+  border: 2px solid transparent; outline: none; font-size: 1em;
+  transition: border-color .23s, box-shadow .23s;
+  box-shadow: 0 2px 8px #C00E3B22;
+}
+.input-group input:focus, .input-group select:focus {
+  border-color: #D4AF37; box-shadow: 0 0 12px #D4AF3755;
+}
+.input-group select {
+  appearance: none; background: rgba(0,0,0,0.30);
+}
+.input-group select:focus {
+  animation: expandDrop 0.2s;
+}
+@keyframes expandDrop { from{transform:scaleY(0.9);}to{transform:scaleY(1);} }
+.btn-login, .btn-guest {
+  width: 100%; padding: 1em 0; font-size: 1.15em; font-weight: bold;
+  border-radius: 1.5em; border: none; cursor: pointer; margin-top: 0.3em;
+  display: flex; align-items: center; justify-content: center; gap: 0.7em;
+  box-shadow: 0 2px 12px #C00E3B22;
+  transition: box-shadow 0.2s, transform 0.13s;
+}
+.btn-login {
+  background: linear-gradient(90deg, #D4AF37 70%, #C00E3B 100%);
+  color: #0A0A0A;
+}
+.btn-login:hover { box-shadow: 0 0 20px #D4AF37; transform: translateY(-2px) scale(1.04); }
+.btn-login:active { transform: scale(0.98); }
+.btn-guest {
+  background: linear-gradient(90deg, #C00E3B 60%, #D4AF37 100%);
+  color: #F5F5F5;
+}
+.btn-guest:hover { box-shadow: 0 0 14px #C00E3B; transform: translateY(-2px) scale(1.03); }
+.btn-guest:active { transform: scale(0.98); }
+.icon {
+  display: inline-block; vertical-align: middle; font-size: 1.2em;
+}
+.sr-only { position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(1px,1px,1px,1px); }
+@media (max-width: 480px) { #login-form { width:90vw; } }
+@media (min-width: 481px) and (max-width: 1024px) { #login-form { width:60vw; } }
+@media (min-width: 1025px) { #login-form { width:40vw; } }
+</style>
+
+<!-- Font Awesome 6 CDN (should already be in <head>, but add if missing) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+
+<!-- SECTION LOGIN JS (Place before </body>) -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const loginForm = document.getElementById('login-form');
+  loginForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('login-name').value.trim();
+    const role = document.getElementById('login-role').value;
+    localStorage.setItem('casinoUserName', name);
+    localStorage.setItem('casinoUserRole', role);
+    // Animate fade out, then show dashboard (or next section)
+    document.getElementById('section-login').style.opacity = 0;
+    setTimeout(() => {
+      document.getElementById('section-login').style.display = 'none';
+      showDashboard(name, role);
+    }, 500);
+  });
+  document.getElementById('guest-btn').addEventListener('click', function() {
+    localStorage.setItem('casinoUserName', 'Guest');
+    localStorage.setItem('casinoUserRole', 'User');
+    document.getElementById('section-login').style.opacity = 0;
+    setTimeout(() => {
+      document.getElementById('section-login').style.display = 'none';
+      showDashboard('Guest', 'User');
+    }, 500);
+  });
+});
+
+function showDashboard(name, role) {
+  // Replace with real dashboard logic or next section
+  alert("Welcome, " + name + " (" + role + ")! [Dashboard would appear here]");
+}
+</script>
